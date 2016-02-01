@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B90CE1C1C606004004D9BE3 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B90CE1B1C606004004D9BE3 /* icon.png */; };
+		0B90CE631C609030004D9BE3 /* ZF_Ban.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B90CE5D1C609030004D9BE3 /* ZF_Ban.png */; };
+		0B90CE641C609030004D9BE3 /* ZF_Collect.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B90CE5E1C609030004D9BE3 /* ZF_Collect.png */; };
+		0B90CE651C609030004D9BE3 /* ZF_Like.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B90CE5F1C609030004D9BE3 /* ZF_Like.png */; };
+		0B90CE661C609030004D9BE3 /* ZF_Share.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B90CE601C609030004D9BE3 /* ZF_Share.png */; };
+		0B90CE671C609030004D9BE3 /* ZF_Uncollect.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B90CE611C609030004D9BE3 /* ZF_Uncollect.png */; };
+		0B90CE681C609030004D9BE3 /* ZF_Unlike.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B90CE621C609030004D9BE3 /* ZF_Unlike.png */; };
+		0B90CE871C61D8AD004D9BE3 /* ZFRadioStation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B90CE861C61D8AD004D9BE3 /* ZFRadioStation.m */; };
+		0B90CE8A1C61DA23004D9BE3 /* ZFSong.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B90CE891C61DA23004D9BE3 /* ZFSong.m */; };
 		0BB0161E1C5A28B700FDF7EF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0161D1C5A28B700FDF7EF /* main.m */; };
 		0BB016211C5A28B700FDF7EF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB016201C5A28B700FDF7EF /* AppDelegate.m */; };
 		0BB016241C5A28B700FDF7EF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB016231C5A28B700FDF7EF /* ViewController.m */; };
@@ -15,13 +24,7 @@
 		0BB0162C1C5A28B700FDF7EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BB0162A1C5A28B700FDF7EF /* LaunchScreen.storyboard */; };
 		0BB016371C5A28B700FDF7EF /* ZFSmartDeviceLink_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB016361C5A28B700FDF7EF /* ZFSmartDeviceLink_iOSTests.m */; };
 		0BB016421C5A28B700FDF7EF /* ZFSmartDeviceLink_iOSUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB016411C5A28B700FDF7EF /* ZFSmartDeviceLink_iOSUITests.m */; };
-		0BB016511C5A29F300FDF7EF /* ZFProxyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB016501C5A29F300FDF7EF /* ZFProxyManager.m */; };
-		0BB016541C5A2C8200FDF7EF /* ZFProxyManager+PutFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB016531C5A2C8200FDF7EF /* ZFProxyManager+PutFile.m */; };
-		0BB016571C5A2CEE00FDF7EF /* ZFPutFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB016561C5A2CEE00FDF7EF /* ZFPutFile.m */; };
-		0BB016611C5B66CF00FDF7EF /* ZFProxyManager+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB016601C5B66CF00FDF7EF /* ZFProxyManager+Image.m */; };
-		0BB0166B1C5B7F1400FDF7EF /* ZFProxyManager+Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0166A1C5B7F1400FDF7EF /* ZFProxyManager+Message.m */; };
-		0BB0166E1C5B838900FDF7EF /* ZFAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0166D1C5B838900FDF7EF /* ZFAppearance.m */; };
-		0BB016771C5B8B8300FDF7EF /* ZFProxyManager+Command.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB016761C5B8B8300FDF7EF /* ZFProxyManager+Command.m */; };
+		0BF0810B1C5F406B007E99A1 /* DOUSDLManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF0810A1C5F406B007E99A1 /* DOUSDLManager.m */; };
 		E5B2D46D6EF36BBFE1A724B2 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF7C3E84348E809DF1E8E2D /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +46,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0B90CE1B1C606004004D9BE3 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		0B90CE5D1C609030004D9BE3 /* ZF_Ban.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZF_Ban.png; sourceTree = "<group>"; };
+		0B90CE5E1C609030004D9BE3 /* ZF_Collect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZF_Collect.png; sourceTree = "<group>"; };
+		0B90CE5F1C609030004D9BE3 /* ZF_Like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZF_Like.png; sourceTree = "<group>"; };
+		0B90CE601C609030004D9BE3 /* ZF_Share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZF_Share.png; sourceTree = "<group>"; };
+		0B90CE611C609030004D9BE3 /* ZF_Uncollect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZF_Uncollect.png; sourceTree = "<group>"; };
+		0B90CE621C609030004D9BE3 /* ZF_Unlike.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZF_Unlike.png; sourceTree = "<group>"; };
+		0B90CE851C61D8AD004D9BE3 /* ZFRadioStation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFRadioStation.h; sourceTree = "<group>"; };
+		0B90CE861C61D8AD004D9BE3 /* ZFRadioStation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFRadioStation.m; sourceTree = "<group>"; };
+		0B90CE881C61DA23004D9BE3 /* ZFSong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFSong.h; sourceTree = "<group>"; };
+		0B90CE891C61DA23004D9BE3 /* ZFSong.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFSong.m; sourceTree = "<group>"; };
 		0BB016191C5A28B700FDF7EF /* ZFSmartDeviceLink-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ZFSmartDeviceLink-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB0161D1C5A28B700FDF7EF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0BB0161F1C5A28B700FDF7EF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -59,20 +73,8 @@
 		0BB0163D1C5A28B700FDF7EF /* ZFSmartDeviceLink-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ZFSmartDeviceLink-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BB016411C5A28B700FDF7EF /* ZFSmartDeviceLink_iOSUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZFSmartDeviceLink_iOSUITests.m; sourceTree = "<group>"; };
 		0BB016431C5A28B700FDF7EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0BB0164F1C5A29F300FDF7EF /* ZFProxyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFProxyManager.h; sourceTree = "<group>"; };
-		0BB016501C5A29F300FDF7EF /* ZFProxyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFProxyManager.m; sourceTree = "<group>"; };
-		0BB016521C5A2C8200FDF7EF /* ZFProxyManager+PutFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZFProxyManager+PutFile.h"; sourceTree = "<group>"; };
-		0BB016531C5A2C8200FDF7EF /* ZFProxyManager+PutFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZFProxyManager+PutFile.m"; sourceTree = "<group>"; };
-		0BB016551C5A2CEE00FDF7EF /* ZFPutFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFPutFile.h; sourceTree = "<group>"; };
-		0BB016561C5A2CEE00FDF7EF /* ZFPutFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFPutFile.m; sourceTree = "<group>"; };
-		0BB0165F1C5B66CF00FDF7EF /* ZFProxyManager+Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZFProxyManager+Image.h"; sourceTree = "<group>"; };
-		0BB016601C5B66CF00FDF7EF /* ZFProxyManager+Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZFProxyManager+Image.m"; sourceTree = "<group>"; };
-		0BB016691C5B7F1400FDF7EF /* ZFProxyManager+Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZFProxyManager+Message.h"; sourceTree = "<group>"; };
-		0BB0166A1C5B7F1400FDF7EF /* ZFProxyManager+Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZFProxyManager+Message.m"; sourceTree = "<group>"; };
-		0BB0166C1C5B838900FDF7EF /* ZFAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFAppearance.h; sourceTree = "<group>"; };
-		0BB0166D1C5B838900FDF7EF /* ZFAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFAppearance.m; sourceTree = "<group>"; };
-		0BB016751C5B8B8300FDF7EF /* ZFProxyManager+Command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZFProxyManager+Command.h"; sourceTree = "<group>"; };
-		0BB016761C5B8B8300FDF7EF /* ZFProxyManager+Command.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZFProxyManager+Command.m"; sourceTree = "<group>"; };
+		0BF081091C5F406B007E99A1 /* DOUSDLManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOUSDLManager.h; sourceTree = "<group>"; };
+		0BF0810A1C5F406B007E99A1 /* DOUSDLManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOUSDLManager.m; sourceTree = "<group>"; };
 		CAF7C3E84348E809DF1E8E2D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D30C8F403B584EAB712B7E93 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		FE2E398BCAB0AC3F93C89CA5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -104,6 +106,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B90CE841C61D896004D9BE3 /* RadioStation */ = {
+			isa = PBXGroup;
+			children = (
+				0B90CE851C61D8AD004D9BE3 /* ZFRadioStation.h */,
+				0B90CE861C61D8AD004D9BE3 /* ZFRadioStation.m */,
+				0B90CE881C61DA23004D9BE3 /* ZFSong.h */,
+				0B90CE891C61DA23004D9BE3 /* ZFSong.m */,
+			);
+			path = RadioStation;
+			sourceTree = "<group>";
+		};
 		0BB016101C5A28B700FDF7EF = {
 			isa = PBXGroup;
 			children = (
@@ -129,24 +142,20 @@
 		0BB0161B1C5A28B700FDF7EF /* ZFSmartDeviceLink-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				0B90CE841C61D896004D9BE3 /* RadioStation */,
+				0B90CE1B1C606004004D9BE3 /* icon.png */,
+				0B90CE5D1C609030004D9BE3 /* ZF_Ban.png */,
+				0B90CE5E1C609030004D9BE3 /* ZF_Collect.png */,
+				0B90CE5F1C609030004D9BE3 /* ZF_Like.png */,
+				0B90CE601C609030004D9BE3 /* ZF_Share.png */,
+				0B90CE611C609030004D9BE3 /* ZF_Uncollect.png */,
+				0B90CE621C609030004D9BE3 /* ZF_Unlike.png */,
 				0BB0161F1C5A28B700FDF7EF /* AppDelegate.h */,
 				0BB016201C5A28B700FDF7EF /* AppDelegate.m */,
 				0BB016221C5A28B700FDF7EF /* ViewController.h */,
 				0BB016231C5A28B700FDF7EF /* ViewController.m */,
-				0BB0164F1C5A29F300FDF7EF /* ZFProxyManager.h */,
-				0BB016501C5A29F300FDF7EF /* ZFProxyManager.m */,
-				0BB016751C5B8B8300FDF7EF /* ZFProxyManager+Command.h */,
-				0BB016761C5B8B8300FDF7EF /* ZFProxyManager+Command.m */,
-				0BB016691C5B7F1400FDF7EF /* ZFProxyManager+Message.h */,
-				0BB0166A1C5B7F1400FDF7EF /* ZFProxyManager+Message.m */,
-				0BB0165F1C5B66CF00FDF7EF /* ZFProxyManager+Image.h */,
-				0BB016601C5B66CF00FDF7EF /* ZFProxyManager+Image.m */,
-				0BB016521C5A2C8200FDF7EF /* ZFProxyManager+PutFile.h */,
-				0BB016531C5A2C8200FDF7EF /* ZFProxyManager+PutFile.m */,
-				0BB016551C5A2CEE00FDF7EF /* ZFPutFile.h */,
-				0BB016561C5A2CEE00FDF7EF /* ZFPutFile.m */,
-				0BB0166C1C5B838900FDF7EF /* ZFAppearance.h */,
-				0BB0166D1C5B838900FDF7EF /* ZFAppearance.m */,
+				0BF081091C5F406B007E99A1 /* DOUSDLManager.h */,
+				0BF0810A1C5F406B007E99A1 /* DOUSDLManager.m */,
 				0BB016251C5A28B700FDF7EF /* Main.storyboard */,
 				0BB016281C5A28B700FDF7EF /* Assets.xcassets */,
 				0BB0162A1C5A28B700FDF7EF /* LaunchScreen.storyboard */,
@@ -305,9 +314,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B90CE1C1C606004004D9BE3 /* icon.png in Resources */,
+				0B90CE681C609030004D9BE3 /* ZF_Unlike.png in Resources */,
+				0B90CE661C609030004D9BE3 /* ZF_Share.png in Resources */,
 				0BB0162C1C5A28B700FDF7EF /* LaunchScreen.storyboard in Resources */,
+				0B90CE641C609030004D9BE3 /* ZF_Collect.png in Resources */,
 				0BB016291C5A28B700FDF7EF /* Assets.xcassets in Resources */,
 				0BB016271C5A28B700FDF7EF /* Main.storyboard in Resources */,
+				0B90CE631C609030004D9BE3 /* ZF_Ban.png in Resources */,
+				0B90CE651C609030004D9BE3 /* ZF_Like.png in Resources */,
+				0B90CE671C609030004D9BE3 /* ZF_Uncollect.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,15 +396,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BB016771C5B8B8300FDF7EF /* ZFProxyManager+Command.m in Sources */,
-				0BB0166B1C5B7F1400FDF7EF /* ZFProxyManager+Message.m in Sources */,
-				0BB016541C5A2C8200FDF7EF /* ZFProxyManager+PutFile.m in Sources */,
-				0BB016571C5A2CEE00FDF7EF /* ZFPutFile.m in Sources */,
-				0BB016611C5B66CF00FDF7EF /* ZFProxyManager+Image.m in Sources */,
-				0BB016511C5A29F300FDF7EF /* ZFProxyManager.m in Sources */,
+				0BF0810B1C5F406B007E99A1 /* DOUSDLManager.m in Sources */,
 				0BB016241C5A28B700FDF7EF /* ViewController.m in Sources */,
-				0BB0166E1C5B838900FDF7EF /* ZFAppearance.m in Sources */,
+				0B90CE871C61D8AD004D9BE3 /* ZFRadioStation.m in Sources */,
 				0BB016211C5A28B700FDF7EF /* AppDelegate.m in Sources */,
+				0B90CE8A1C61DA23004D9BE3 /* ZFSong.m in Sources */,
 				0BB0161E1C5A28B700FDF7EF /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -480,7 +492,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -518,7 +530,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -533,7 +545,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "ZFSmartDeviceLink-iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.byguitar.ZFSmartDeviceLink-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.smartdevicelink.SDLTestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -545,7 +557,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "ZFSmartDeviceLink-iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.byguitar.ZFSmartDeviceLink-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.smartdevicelink.SDLTestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

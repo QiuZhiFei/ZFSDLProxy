@@ -7,6 +7,19 @@
 //
 
 #import "AppDelegate.h"
+#import "DOUSDLManager.h"
+#import "ZFSDLProxy.h"
+
+#import "NSLogger.h"
+#import "LoggerClient.h"
+#import "JxbDebugTool.h"
+
+#import "ZFRadioStation.h"
+#import "ZFSong.h"
+
+void uncaughtExceptionHandler(NSException *exception) {
+  LogDebug(@"Crash : %@ %@ %@ , \n Stacks Traces : %@", exception.name, exception.reason, exception.userInfo, exception.callStackSymbols);
+}
 
 @interface AppDelegate ()
 
@@ -17,6 +30,36 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   // Override point for customization after application launch.
+  
+  NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+  
+  LoggerSetViewerHost(NULL, (CFStringRef)@"192.168.0.216", (UInt32)50000);
+  LogDebug(@"测试 NSLogger");
+  
+#ifdef DEBUG
+  [SDLProxy enableSiphonDebug];
+  [SDLDebugTool enableDebugToLogFile];
+  
+  [[JxbDebugTool shareInstance] setMainColor:[UIColor redColor]];
+  [[JxbDebugTool shareInstance] enableDebugMode];
+#endif
+  
+  NSArray *imageURLs = @[@"http://img1.imgtn.bdimg.com/it/u=1768261506,2972859401&fm=21&gp=0.jpg",
+                         @"http://img3.imgtn.bdimg.com/it/u=1284416964,1606791513&fm=21&gp=0.jpg",
+                         @"http://pica.nipic.com/2007-11-09/200711912453162_2.jpg"];
+  NSMutableArray *songs = [NSMutableArray array];
+  for (int i = 0; i < 3; i ++) {
+    ZFSong *song = [[ZFSong alloc] init];
+    song.title = [NSString stringWithFormat:@"title - %d", i];
+    song.artist = [NSString stringWithFormat:@"artist - %d", i];
+    song.audioFileURL = [NSURL URLWithString:@"http://douban.fm/misc/mp3url?domain=mr7"];
+    song.albumCoverUrl = [NSURL URLWithString:imageURLs[i]];
+    song.likeit = NO;
+    [songs addObject:song];
+  } 
+  [[ZFRadioStation sharedRadioStation] playSongList:songs atIndex:0];
+
+  
   return YES;
 }
 

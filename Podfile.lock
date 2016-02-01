@@ -1,10 +1,36 @@
 PODS:
+  - DOUAudioStreamer (0.2.13)
+  - JxbDebugTool (3.8)
+  - MAKVONotificationCenter (0.0.2)
+  - NSLogger (1.5.1):
+    - NSLogger/Standard (= 1.5.1)
+  - NSLogger/Standard (1.5.1)
+  - SDWebImage (3.7.5):
+    - SDWebImage/Core (= 3.7.5)
+  - SDWebImage/Core (3.7.5)
   - SmartDeviceLink-iOS (4.0.1)
+  - ZFSDLProxy (1.0.0):
+    - SmartDeviceLink-iOS (~> 4.0.1)
 
 DEPENDENCIES:
-  - SmartDeviceLink-iOS (~> 4.0.1)
+  - DOUAudioStreamer (~> 0.2.13)
+  - JxbDebugTool (~> 3.8)
+  - MAKVONotificationCenter (~> 0.0.2)
+  - NSLogger (~> 1.5.1)
+  - SDWebImage (~> 3.7)
+  - ZFSDLProxy (from `ZFSDLProxy.podspec`)
+
+EXTERNAL SOURCES:
+  ZFSDLProxy:
+    :path: ZFSDLProxy.podspec
 
 SPEC CHECKSUMS:
+  DOUAudioStreamer: 4970f2b2f3f15e479e52263ecdb2f0ebe0a0c317
+  JxbDebugTool: 78fb33429338b9ffa9169bdddd1c0b873a912c70
+  MAKVONotificationCenter: eddfb85e77040323ee43a0fddbe616926ec005a8
+  NSLogger: 5ed223a2436df96244e033be750656dacdeec034
+  SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
   SmartDeviceLink-iOS: 3b6273eb8b65a1bed43ffa03c72ccbfbca069fff
+  ZFSDLProxy: 35bded0a731fd9158181137f4cb7c639024e68d9
 
 COCOAPODS: 0.39.0

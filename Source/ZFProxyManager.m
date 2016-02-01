@@ -9,56 +9,77 @@
 #import "ZFProxyManager.h"
 #import "ZFProxyManager+PutFile.h"
 #import "ZFProxyManager+Image.h"
+#import "ZFMacros.h"
+
+NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotification";
 
 @interface ZFProxyManager () 
-@property (assign, nonatomic) BOOL isFirstHMIFull;
-@property (nonatomic, assign) ProxyState state;
-@property (nonatomic, assign) BOOL pausedByUser;
+@property (nonatomic, assign) BOOL           isFirstHMIFull;
+@property (nonatomic, assign) ZFProxyState   state;
+@property (nonatomic, assign) BOOL           pausedByUser;
+
+@property (nonatomic, assign) BOOL           isGraphicsSupported;
+@property (nonatomic, strong) SDLDisplayType *displayType;
+@property (nonatomic, strong) NSArray        *textFields;
+@property (nonatomic, strong) NSArray        *tempplatesAvailable;
 @end
 
 @implementation ZFProxyManager
 
-+ (instancetype)sharedManager
+- (id)initWithAPP:(ZFAppearance *)app
 {
-  static ZFProxyManager *manager = nil;
-  static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
-    manager = [[ZFProxyManager alloc] init];
-  });
-  return manager;
-}
-
-- (id)init
-{
+  NSParameterAssert(app);
   self = [super init];
   if (self) {
+    _isGraphicsSupported = NO;
+    
+    _app = app;
     [self _setupProxy];
   }
   return self;
 }
 
+- (instancetype)init NS_UNAVAILABLE
+{
+  return nil;
+}
+
 - (NSNumber *)autoIncCorrIDNum
 {
-  return @1;
+  static NSInteger _correlationID = 1000;
+  return @(_correlationID++);
+}
+
+- (void)setState:(ZFProxyState)state
+{
+  _state = state;
+  [[NSNotificationCenter defaultCenter] postNotificationName:kZFProxyStateChangedNotification
+                                                      object:nil];
 }
 
 #pragma mark - Public Methods
 
 - (void)startProxy
 {
+  LogDebug(@"startProxy ~ ");
   if (_proxy == nil) {
     _proxy = [SDLProxyFactory buildSDLProxyWithListener:self];
   }
-  _state = ProxyStateSearchingForConnection;
+  self.state = ZFProxyStateSearchingForConnection;
+
 }
 
 - (void)stopProxy
 {
-  _state = ProxyStateStopped;
+  LogDebug(@"stopProxy ~ ");
+  SDLUnregisterAppInterface *unRegRequest = [SDLRPCRequestFactory buildUnregisterAppInterfaceWithCorrelationID:self.autoIncCorrIDNum];
+  [_proxy sendRPC:unRegRequest];
+  
+  self.state = ZFProxyStateStopped;
   [_proxy dispose];
   _proxy = nil;
   _isFirstHMIFull = NO;
-  [self resetPutFilesData];
+  [self resetPutFilesData];  
 }
 
 - (void)resetProxy
@@ -72,21 +93,21 @@
 - (void)_setupProxy
 {
   _proxy = nil;
-  _state = ProxyStateStopped;
+  _state = ZFProxyStateStopped;
   _isFirstHMIFull = NO;
 }
 
 - (void)_showIcon
 {
-  if (self.app.icon) {
-    NSString *icon = @"icon";
+  if (self.app.icon && self.isGraphicsSupported) {
+    NSString *iconName = @"icon";
     NSNumber *correlationID = [self.autoIncCorrIDNum copy];
     [self putImage:self.app.icon
-              name:icon
+              name:iconName
      correlationID:self.autoIncCorrIDNum
           finished:^(BOOL success, SDLPutFileResponse *response) {
             if (success) {
-              SDLSetAppIcon *req = [SDLRPCRequestFactory buildSetAppIconWithFileName:icon
+              SDLSetAppIcon *req = [SDLRPCRequestFactory buildSetAppIconWithFileName:iconName
                                                                        correlationID:correlationID];
               [self.proxy sendRPC:req];
             }
@@ -94,12 +115,27 @@
   }
 }
 
+- (void)_lockUserInterface
+{
+  if (self.SDLConnectedSuccessHandler) {
+    self.SDLConnectedSuccessHandler();
+  }
+}
+
+- (void)_unlockUserInterface
+{
+  if (self.SDLDisconnectedHandler) {
+    self.SDLDisconnectedHandler();
+  }
+}
+
 #pragma mark - SDLProxyListner delegate methods
 
 - (void)onProxyOpened
 {
-  _state = ProxyStateConnected;
-  
+  LogDebug(@"onProxyOpened ~");
+  self.state = ZFProxyStateConnected;
+
   SDLRegisterAppInterface *regRequest = [SDLRPCRequestFactory
                                          buildRegisterAppInterfaceWithAppName:self.app.name
                                          languageDesired:self.app.lang
@@ -112,6 +148,8 @@
 
 - (void)onProxyClosed
 {
+  LogDebug(@"onProxyClosed");
+  [self _unlockUserInterface];
   if (self.app.restartIfProxyClosed) {
     [self resetProxy];
   } else {
@@ -121,11 +159,13 @@
 
 - (void)onOnHMIStatus:(SDLOnHMIStatus *)notification
 {
+  LogDebug(@"HMILevel == %@", [SDLHMILevel NONE].description);
   if (notification.hmiLevel == SDLHMILevel.NONE) {
-    self.state = ProxyStateStopped;
+#pragma message "none 如何处理"
   } else if (notification.hmiLevel == SDLHMILevel.FULL) {
     if (!_isFirstHMIFull) {
       _isFirstHMIFull = YES;
+      [self _lockUserInterface];
     }
   }
   
@@ -141,44 +181,26 @@
       }
     }
   }
-  
-  [self _showIcon];
 }
 
-- (void)onOnCommand:(SDLOnCommand *)notification
+- (void)onOnDriverDistraction:(SDLOnDriverDistraction *)notification
 {
-  
+  // Do nothing.
 }
 
-- (void)onOnButtonEvent:(SDLOnButtonEvent *)notification
+- (void)onRegisterAppInterfaceResponse:(SDLRegisterAppInterfaceResponse *)response
 {
-  [HavalDebugTool logInfo:[NSString stringWithFormat:@"%@ name == %@ id == %@", NSStringFromSelector(_cmd), notification.buttonName, notification.customButtonID]];
-  
-  if ([notification.buttonEventMode isEqual:[SDLButtonEventMode BUTTONDOWN]]) {
-    if ([notification.buttonName isEqual:[SDLButtonName OK]]) {
-      _pausedByUser = [self isAudioPlaying];
-      [self toggleAudioPlaying];
-    } else if ([notification.buttonName isEqual:[SDLButtonName SEEKRIGHT]]) {
-      [[DOURadioStation sharedRadioStation] skipSong];
-      [self _clearMediaTimer];
-    } else if ([notification.buttonName isEqual:[SDLButtonName SEEKLEFT]]) {
-      [self prompt:HAVAL_LOCALE_PREVIOUS_NOT_SUPPORTED];
+  self.isGraphicsSupported = NO;
+  if (response.displayCapabilities != nil) {
+    self.displayType = response.displayCapabilities.displayType;
+    self.textFields = response.displayCapabilities.textFields;
+    self.tempplatesAvailable = response.displayCapabilities.templatesAvailable;
+    
+    if (response.displayCapabilities.graphicSupported != nil) {
+      self.isGraphicsSupported = response.displayCapabilities.graphicSupported.boolValue;
     }
   }
-}
-
-- (void)lockUserInterface
-{
-  if (self.SDLConnectedSuccessHandler) {
-    self.SDLConnectedSuccessHandler();
-  }
-}
-
-- (void)unlockUserInterface
-{
-  if (self.SDLDisconnectedHandler) {
-    self.SDLDisconnectedHandler();
-  }
+  [self _showIcon];
 }
 
 @end

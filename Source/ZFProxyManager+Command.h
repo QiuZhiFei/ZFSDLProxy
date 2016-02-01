@@ -12,4 +12,9 @@ typedef void(^ZFCommandHandler)();
 
 @interface ZFProxyManager (Command)
 
+- (void)addCommandWithMenuName:(NSString *)name
+                      commands:(NSArray *)commands
+                 correlationID:(NSNumber *)correlationID
+                       handler:(ZFCommandHandler)handler;
+
 @end

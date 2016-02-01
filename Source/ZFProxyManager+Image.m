@@ -10,8 +10,10 @@
 #import "ZFPutFile.h"
 #import "ZFProxyManager+PutFile.h"
 
+#import <objc/runtime.h>
+
 @interface ZFProxyManager ()
-@property (nonatomic, strong) NSMutableDictionary *putImages;
+@property (nonatomic, strong) NSMutableDictionary *zf_putImages;
 @end
 
 @implementation ZFProxyManager (Image)
@@ -27,7 +29,7 @@
   }
 #pragma message "需要设置图片的大小限制"
   if (data) {
-    [self.putImages setValue:correlationID forKey:name];
+    [self.zf_putImages setValue:correlationID forKey:name];
     ZFPutFile *file = [ZFPutFile fileWithFileName:name
                                          bulkData:data
                                          fileType:[[self class] _typeForImageData:data]
@@ -40,7 +42,7 @@
 - (SDLImage *)SDLImageNamed:(NSString *)name
 {
   SDLImage *image = nil;
-  ZFPutFile *file = [self putFileForCorrelationID:self.putImages[name]];
+  ZFPutFile *file = [self putFileForCorrelationID:self.zf_putImages[name]];
   if (file) {
     image = [[SDLImage alloc] init];
     image.value = file.syncFileName;
@@ -63,6 +65,18 @@
       return [SDLFileType GRAPHIC_PNG];
   }
   return nil;
+}
+
+#pragma mark - Private Methods
+
+- (NSMutableDictionary *)zf_putImages
+{
+  NSMutableDictionary *putImages = objc_getAssociatedObject(self, _cmd);
+  if (putImages == nil) {
+    putImages = [NSMutableDictionary dictionary];
+    objc_setAssociatedObject(self, _cmd, putImages, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+  }
+  return putImages;
 }
 
 @end

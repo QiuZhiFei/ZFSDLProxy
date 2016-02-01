@@ -9,10 +9,12 @@
 #import "ZFProxyManager+PutFile.h"
 #import "ZFPutFile.h"
 
+#import <objc/runtime.h>
+
 @interface ZFProxyManager ()
-@property (nonatomic, strong) NSMutableDictionary *putHandlers;
-@property (nonatomic, strong) NSMutableDictionary      *putFiles;
-@property (nonatomic, strong) NSMutableDictionary *puttingFiles;
+@property (nonatomic, strong) NSMutableDictionary *zf_putHandlers;
+@property (nonatomic, strong) NSMutableDictionary *zf_putFiles;
+@property (nonatomic, strong) NSMutableDictionary *zf_puttingFiles;
 @end
 
 @implementation ZFProxyManager (PutFile)
@@ -46,12 +48,12 @@
       }
       return;
     } else {
-      [self.putHandlers setValue:handler forKey:key];
-      if ([self.puttingFiles valueForKey:key]) {
+      [self.zf_putHandlers setValue:handler forKey:key];
+      if ([self.zf_puttingFiles valueForKey:key]) {
         // 已经在请求中
         return;
       }
-      [self.puttingFiles setValue:file forKey:key];
+      [self.zf_puttingFiles setValue:file forKey:key];
     }
   }
   
@@ -70,19 +72,19 @@
 
 - (ZFPutFile *)putFileForCorrelationID:(NSNumber *)correlationID
 {
-  return self.putFiles[correlationID.stringValue];
+  return self.zf_putFiles[correlationID.stringValue];
 }
 
 - (BOOL)inPuttingForFile:(ZFPutFile *)file
 {
-  return [self.puttingFiles objectForKey:file.correlationID] != nil;
+  return [self.zf_puttingFiles objectForKey:file.correlationID] != nil;
 }
 
 - (void)resetPutFilesData
 {
-  self.putFiles = nil;
-  self.puttingFiles = nil;
-  self.putHandlers = nil;
+  self.zf_putFiles = nil;
+  self.zf_puttingFiles = nil;
+  self.zf_putHandlers = nil;
 }
 
 #pragma mark - Delegate
@@ -94,22 +96,69 @@
   }
   NSString *correlationID = [NSString stringWithFormat:@"%@", response.correlationID];
   
-  ZFPutFile *file = self.puttingFiles[correlationID];
-  [self.puttingFiles removeObjectForKey:correlationID];
+  ZFPutFile *file = self.zf_puttingFiles[correlationID];
+  [self.zf_puttingFiles removeObjectForKey:correlationID];
   
-  ZFPutFileHandler handler = self.putHandlers[correlationID];
+  ZFPutFileHandler handler = self.zf_putHandlers[correlationID];
   
   if ([response.resultCode.value isEqualToString:[SDLResult SUCCESS].value]) {
     if (file) {
-      [self.putFiles setValue:file forKey:correlationID];
+      [self.zf_putFiles setValue:file forKey:correlationID];
       handler(YES, response);
-      [self.putHandlers removeObjectForKey:correlationID];
+      [self.zf_putHandlers removeObjectForKey:correlationID];
       return;
     }
   }
   
   handler(NO, nil);
-  [self.putHandlers removeObjectForKey:correlationID];
+  [self.zf_putHandlers removeObjectForKey:correlationID];
+}
+
+#pragma mark - Private Methods
+
+- (void)setZf_putFiles:(NSMutableDictionary *)zf_putFiles
+{
+  objc_setAssociatedObject(self, @selector(zf_putFiles), zf_putFiles, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (void)setZf_putHandlers:(NSMutableDictionary *)zf_putHandlers
+{
+  objc_setAssociatedObject(self, @selector(zf_putHandlers), zf_putHandlers, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (void)setZf_puttingFiles:(NSMutableDictionary *)zf_puttingFiles
+{
+  objc_setAssociatedObject(self, @selector(zf_puttingFiles), zf_puttingFiles, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSMutableDictionary *)zf_putFiles
+{
+  NSMutableDictionary *dictionary = objc_getAssociatedObject(self, _cmd);
+  if (dictionary == nil) {
+    dictionary = [NSMutableDictionary dictionary];
+    objc_setAssociatedObject(self, _cmd, dictionary, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+  }
+  return dictionary;
+}
+
+- (NSMutableDictionary *)zf_putHandlers
+{
+  NSMutableDictionary *dictionary = objc_getAssociatedObject(self, _cmd);
+  if (dictionary == nil) {
+    dictionary = [NSMutableDictionary dictionary];
+    objc_setAssociatedObject(self, _cmd, dictionary, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+  }
+  return dictionary;
+}
+
+- (NSMutableDictionary *)zf_puttingFiles
+{
+  NSMutableDictionary *dictionary = objc_getAssociatedObject(self, _cmd);
+  if (dictionary == nil) {
+    dictionary = [NSMutableDictionary dictionary];
+    objc_setAssociatedObject(self, _cmd, dictionary, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+  }
+  return dictionary;
 }
 
 @end

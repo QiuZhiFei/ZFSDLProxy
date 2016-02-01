@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@class SDLLanguage, UIImage;
+@class SDLLanguage;
 
 @interface ZFAppearance : NSObject
 
