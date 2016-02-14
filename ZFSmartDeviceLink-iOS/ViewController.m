@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "DOUSDLManager.h"
+#import "DOUSDLManager+Manufacturer.h"
 #import "ZFRadioStation.h"
 #import "ZFSong.h"
 
@@ -23,6 +24,19 @@
   
   [self _proxyStateChanged];
   [self _updateSongInfo];
+  
+  // HAVAL 需要在连接配件后开启服务
+  if ([DOUSDLManager connectedAccessoryIsHaval]) {
+    [[NSNotificationCenter defaultCenter] addObserverForName:EAAccessoryDidConnectNotification
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification * _Nonnull note) {
+                                                    LogDebug(@"Accessory Did Connect");
+                                                    [[DOUSDLManager sharedManager] startProxy];
+                                                  }];
+  } else {
+    [[DOUSDLManager sharedManager] startProxy];
+  }
   
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(_proxyStateChanged)

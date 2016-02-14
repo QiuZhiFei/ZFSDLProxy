@@ -23,7 +23,7 @@ FOUNDATION_EXTERN NSString * const kZFProxyStateChangedNotification;
 
 - (id)initWithAPP:(ZFAppearance *)app NS_DESIGNATED_INITIALIZER;
 
-@property (nonatomic, readonly, strong) SDLProxy     * proxy;
+@property (nonatomic, readonly, strong) SDLProxy     *proxy;
 @property (nonatomic, readonly, assign) ZFProxyState state;
 @property (nonatomic, readonly, strong) ZFAppearance *app;
 @property (nonatomic, readonly, assign) BOOL         isGraphicsSupported;
@@ -31,7 +31,7 @@ FOUNDATION_EXTERN NSString * const kZFProxyStateChangedNotification;
  *  autoIncCorrIDNum 1000~ 
  *  0 ~ 999  constantID
  */
-@property (nonatomic, readonly, strong) NSNumber     * autoIncCorrIDNum;
+@property (nonatomic, readonly, strong) NSNumber     *autoIncCorrIDNum;
 
 - (void)startProxy;
 - (void)stopProxy;

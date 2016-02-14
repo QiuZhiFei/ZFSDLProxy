@@ -7,14 +7,13 @@
 //
 
 #import "DOUSDLManager.h"
+#import "DOUSDLManager+Manufacturer.h"
 #import "ZFRadioStation.h"
 #import "ZFSong.h"
+#import "DOUSDLInfo.h"
 
 #import <SDWebImage/SDWebImageManager.h>
 #import <MAKVONotificationCenter/MAKVONotificationCenter.h>
-
-NSString *const ZFSDLAppName = @"豆瓣FM";
-NSString *const ZFSDLAppId = @"9999";
 
 // 0 ~ 999  constantID
 static const NSUInteger kHotChannelChoiceInteractionSetID = 100;
@@ -27,6 +26,8 @@ static const NSUInteger kHotChannelChoiceInteractionSetID = 100;
 @property (nonatomic, strong, readonly) SDLSoftButton *collectChannelButton;
 @property (nonatomic, strong, readonly) SDLSoftButton *shareButton;
 @property (nonatomic, strong, readonly) SDLSoftButton *banButton;
+
+@property (nonatomic, strong) NSTimer *poHeartBeatTimer;
 @end
 
 @implementation DOUSDLManager
@@ -126,9 +127,17 @@ static const NSUInteger kHotChannelChoiceInteractionSetID = 100;
   };
   _proxyManager.SDLDisconnectedHandler = ^{
     LogDebug(@"SDL Disconnected Success");
+    if (wself.manufacturer == ZFSDLManufacturerHaval) {
+      [wself stopHeartBeat];
+    }
   };
   _proxyManager.SDLRegisterAppInterfaceHandler = ^(SDLRegisterAppInterfaceResponse *response) {
     LogDebug(@"SDL Register Interface make is %@", response.vehicleType.make);
+    [wself resetSDLManufacturer:response];
+    LogDebug(@"Manufacturer is %ld", (unsigned long)wself.manufacturer);
+    if (wself.manufacturer == ZFSDLManufacturerHaval) {
+      [wself startHeartBeat];
+    }
   };
 }
 
@@ -312,6 +321,44 @@ static const NSUInteger kHotChannelChoiceInteractionSetID = 100;
                                              startTime:[[ZFRadioStation sharedRadioStation] currentTime]
                                                endTime:[[ZFRadioStation sharedRadioStation] duration]
                                          correlationID:self.proxyManager.autoIncCorrIDNum];
+}
+
+#pragma mark - Haval
+
+- (void)startHeartBeat
+{
+  [self stopHeartBeat];
+  
+  self.poHeartBeatTimer = [[NSTimer alloc] initWithFireDate:[NSDate date]
+                                                   interval:ZF_HAVAL_HEART_BEAT_WITH_ALERT_TIME_INTERVAL
+                                                     target:self
+                                                   selector:@selector(onHeartBeatTimeOut)
+                                                   userInfo:nil
+                                                    repeats:YES];
+  [[NSRunLoop currentRunLoop] addTimer:self.poHeartBeatTimer forMode:NSRunLoopCommonModes];
+}
+
+- (void)stopHeartBeat
+{
+  if (self.poHeartBeatTimer != nil) {
+    if (self.poHeartBeatTimer.isValid) {
+      [self.poHeartBeatTimer invalidate];
+    }
+    self.poHeartBeatTimer = nil;
+  }
+}
+
+- (void)onHeartBeatTimeOut
+{
+  SDLAlert *alertReq = [SDLRPCRequestFactory buildAlertWithTTSChunks:nil
+                                                          alertText1:ZF_HAVAL_HEART_BEAT_ALERT_TEXT_1
+                                                          alertText2:ZF_HAVAL_HEART_BEAT_ALERT_TEXT_2
+                                                          alertText3:nil
+                                                            playTone:[NSNumber numberWithBool:NO]
+                                                            duration:ZF_HAVAL_HEART_BEAT_ALERT_DURATION
+                                                         softButtons:nil
+                                                       correlationID:self.proxyManager.autoIncCorrIDNum];
+  [self.proxyManager.proxy sendRPC:alertReq];
 }
 
 @end
