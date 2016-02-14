@@ -55,6 +55,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     song.audioFileURL = [NSURL URLWithString:@"http://douban.fm/misc/mp3url?domain=mr7"];
     song.albumCoverUrl = [NSURL URLWithString:imageURLs[i]];
     song.likeit = NO;
+    song.collected = NO;
     [songs addObject:song];
   } 
   [[ZFRadioStation sharedRadioStation] playSongList:songs atIndex:0];

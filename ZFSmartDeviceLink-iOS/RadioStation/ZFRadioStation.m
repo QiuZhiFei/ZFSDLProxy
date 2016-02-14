@@ -18,6 +18,7 @@ static NSString *kBufferingRatioKVOKey = @"bufferingRatio";
 NSString * const kZFRadioStationPlayerStatusChangedNotification = @"kZFRadioStationPlayerStatusChangedNotification";
 NSString * const kZFRadioStationSongChangedNotification = @"kZFRadioStationSongChangedNotification";
 NSString * const kZFRadioStationSongLikedChangedNotification = @"kZFRadioStationSongLikedChangedNotification";
+NSString * const kZFRadioStationSongCollectedChangedNotification = @"kZFRadioStationSongCollectedChangedNotification";
 
 @interface ZFRadioStation ()
 @property (nonatomic, strong) DOUAudioStreamer *streamer;
@@ -97,7 +98,13 @@ NSString * const kZFRadioStationSongLikedChangedNotification = @"kZFRadioStation
 - (void)likeSong
 {
   self.curSong.likeit = !self.curSong.likeit;
-   [[NSNotificationCenter defaultCenter] postNotificationName:kZFRadioStationSongLikedChangedNotification object:nil];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kZFRadioStationSongLikedChangedNotification object:nil];
+}
+
+- (void)collectSong
+{
+  self.curSong.collected = !self.curSong.collected;
+  [[NSNotificationCenter defaultCenter] postNotificationName:kZFRadioStationSongCollectedChangedNotification object:nil];
 }
 
 - (void)pausePlaying

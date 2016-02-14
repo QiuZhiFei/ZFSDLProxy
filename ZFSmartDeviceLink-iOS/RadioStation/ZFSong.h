@@ -13,8 +13,9 @@
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *artist;
-@property (nonatomic, strong) NSURL *albumCoverUrl;
-@property (nonatomic, strong) NSURL *audioFileURL;
-@property (nonatomic, assign) BOOL likeit;
+@property (nonatomic, strong) NSURL    *albumCoverUrl;
+@property (nonatomic, strong) NSURL    *audioFileURL;
+@property (nonatomic, assign) BOOL     likeit;
+@property (nonatomic, assign) BOOL     collected;
 
 @end

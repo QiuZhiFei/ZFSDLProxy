@@ -58,6 +58,10 @@ static const NSUInteger kHotChannelChoiceInteractionSetID = 100;
                                                  name:kZFRadioStationSongLikedChangedNotification
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_updatePlayingInfo)
+                                                 name:kZFRadioStationSongCollectedChangedNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_songChanged)
                                                  name:kZFRadioStationSongChangedNotification
                                                object:nil];
@@ -65,7 +69,6 @@ static const NSUInteger kHotChannelChoiceInteractionSetID = 100;
                                              selector:@selector(_playerStatusChanged)
                                                  name:kZFRadioStationPlayerStatusChangedNotification
                                                object:nil];
-    
   }
   return self;
 }
@@ -251,17 +254,22 @@ static const NSUInteger kHotChannelChoiceInteractionSetID = 100;
                                                     softButtonID:_proxyManager.autoIncCorrIDNum
                                                          handler:^{
                                                            LogDebug(@"like");
+                                                           [[ZFRadioStation sharedRadioStation] likeSong];
                                                          }];
   }
   _playStatusButton.text = [[[ZFRadioStation sharedRadioStation] curSong] likeit] ? @"不喜欢" : @"喜欢";
+  
   if (_collectChannelButton == nil) {
     _collectChannelButton = [_proxyManager zf_buildSDLSoftButtonText:@"收藏"
                                                                image:[_proxyManager SDLImageNamed:@"ZF_Collect"]
                                                         softButtonID:_proxyManager.autoIncCorrIDNum
                                                              handler:^{
                                                                LogDebug(@"collect");
+                                                               [[ZFRadioStation sharedRadioStation] collectSong];
                                                              }];
   }
+  _collectChannelButton.text = [[[ZFRadioStation sharedRadioStation] curSong] collected] ? @"取消收藏" : @"添加收藏";
+  
   if (_shareButton == nil) {
     _shareButton = [_proxyManager zf_buildSDLSoftButtonText:@"分享"
                                                       image:[_proxyManager SDLImageNamed:@"ZF_Share"]

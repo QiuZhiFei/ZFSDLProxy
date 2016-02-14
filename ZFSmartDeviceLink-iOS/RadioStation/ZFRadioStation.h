@@ -13,6 +13,7 @@
 FOUNDATION_EXPORT NSString * const kZFRadioStationPlayerStatusChangedNotification;
 FOUNDATION_EXPORT NSString * const kZFRadioStationSongChangedNotification;
 FOUNDATION_EXPORT NSString * const kZFRadioStationSongLikedChangedNotification;
+FOUNDATION_EXPORT NSString * const kZFRadioStationSongCollectedChangedNotification;
 
 @interface ZFRadioStation : NSObject
 
@@ -30,6 +31,8 @@ FOUNDATION_EXPORT NSString * const kZFRadioStationSongLikedChangedNotification;
 - (void)skipSong;
 - (void)banSong;
 - (void)likeSong;
+- (void)collectSong;
+
 - (void)pausePlaying;
 - (void)startPlaying;
 - (BOOL)isAudioPlaying;
