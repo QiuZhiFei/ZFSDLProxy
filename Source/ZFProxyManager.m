@@ -201,6 +201,10 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
     }
   }
   [self _showIcon];
+  
+  if (self.SDLRegisterAppInterfaceHandler) {
+    self.SDLRegisterAppInterfaceHandler(response);
+  }
 }
 
 @end

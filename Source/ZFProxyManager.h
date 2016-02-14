@@ -38,6 +38,7 @@ FOUNDATION_EXTERN NSString * const kZFProxyStateChangedNotification;
 
 @property (nonatomic, strong) void(^SDLConnectedSuccessHandler)();
 @property (nonatomic, strong) void(^SDLDisconnectedHandler)();
+@property (nonatomic, strong) void(^SDLRegisterAppInterfaceHandler)(SDLRegisterAppInterfaceResponse *response);
 
 @property (nonatomic, strong) void(^SDLAudioStreamingStateChanged)(BOOL paused);
 

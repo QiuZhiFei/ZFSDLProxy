@@ -21,7 +21,7 @@ static const NSUInteger kHotChannelChoiceInteractionSetID = 100;
 
 @interface DOUSDLManager ()
 @property (nonatomic, strong, readonly) ZFProxyManager *proxyManager;
-@property (nonatomic, strong, readonly) ZFAppearance *app;
+@property (nonatomic, strong, readonly) ZFAppearance   *app;
 
 @property (nonatomic, strong, readonly) SDLSoftButton *playStatusButton;
 @property (nonatomic, strong, readonly) SDLSoftButton *collectChannelButton;
@@ -126,6 +126,9 @@ static const NSUInteger kHotChannelChoiceInteractionSetID = 100;
   };
   _proxyManager.SDLDisconnectedHandler = ^{
     LogDebug(@"SDL Disconnected Success");
+  };
+  _proxyManager.SDLRegisterAppInterfaceHandler = ^(SDLRegisterAppInterfaceResponse *response) {
+    LogDebug(@"SDL Register Interface make is %@", response.vehicleType.make);
   };
 }
 
