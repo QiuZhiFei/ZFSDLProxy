@@ -14,6 +14,8 @@
                    message:(NSString *)message
                   duration:(NSInteger)duration;
 
+- (void)speakWithTTS:(NSString *)ttsText;
+
 - (void)showMessageWithField1:(NSString *)field1
                        field2:(NSString *)field2
                    mediaTrack:(NSString *)mediaTrack

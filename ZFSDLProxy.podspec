@@ -9,5 +9,6 @@ Pod::Spec.new do |s|
   s.source_files  = "Source/*.{h,m}"
   
   s.dependency 'SmartDeviceLink-iOS',                '~> 4.0.1'
+  s.dependency 'JRSwizzle',               		'~> 1.0'
 
 end

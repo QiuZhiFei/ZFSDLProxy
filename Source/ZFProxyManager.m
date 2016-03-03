@@ -9,7 +9,11 @@
 #import "ZFProxyManager.h"
 #import "ZFProxyManager+PutFile.h"
 #import "ZFProxyManager+Image.h"
+#import "ZFProxyManager+Manufacturer.h"
 #import "ZFMacros.h"
+#import "SDLProxy+Haval.h"
+
+#import <JRSwizzle/JRSwizzle.h>
 
 NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotification";
 
@@ -31,7 +35,11 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
   NSParameterAssert(app);
   self = [super init];
   if (self) {
-    _isGraphicsSupported = NO;
+    [SDLProxy jr_swizzleMethod:@selector(onProtocolMessageReceived:)
+                    withMethod:@selector(zf_onProtocolMessageReceived:)
+                         error:nil];
+    
+    [self _resetData];
     
     _app = app;
     [self _setupProxy];
@@ -61,12 +69,17 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
 
 - (void)startProxy
 {
-  LogDebug(@"startProxy ~ ");
-  if (_proxy == nil) {
-    _proxy = [SDLProxyFactory buildSDLProxyWithListener:self];
+  if ([[self class] isHavalValidAccessoryConnected]) {
+    if ([UIApplication sharedApplication].applicationState != UIApplicationStateActive) {
+      LogDebug(@"Failed to start proxy, application is inactive");
+      return;
+    }
+    LogDebug(@"Haval start proxy");
+    [self _startProxy];
+  } else {
+    LogDebug(@"Normal start proxy");
+    [self _startProxy];
   }
-  self.state = ZFProxyStateSearchingForConnection;
-
 }
 
 - (void)stopProxy
@@ -79,7 +92,8 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
   [_proxy dispose];
   _proxy = nil;
   _isFirstHMIFull = NO;
-  [self resetPutFilesData];  
+  [self resetPutFilesData];
+  [self _resetData];
 }
 
 - (void)resetProxy
@@ -89,6 +103,14 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
 }
 
 #pragma mark - Private Methods
+
+- (void)_startProxy
+{
+  if (_proxy == nil) {
+    _proxy = [SDLProxyFactory buildSDLProxyWithListener:self];
+  }
+  self.state = ZFProxyStateSearchingForConnection;
+}
 
 - (void)_setupProxy
 {
@@ -127,6 +149,13 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
   if (self.SDLDisconnectedHandler) {
     self.SDLDisconnectedHandler();
   }
+}
+
+- (void)_resetData
+{
+  _isGraphicsSupported = NO;
+  _resolutionSize = CGSizeZero;
+  _proxy = nil;
 }
 
 #pragma mark - SDLProxyListner delegate methods
@@ -201,7 +230,13 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
     }
   }
   [self _showIcon];
+  [self resetSDLManufacturer:response];
+  LogDebug(@"Manufacturer is %ld", (unsigned long)self.manufacturer);
   
+  SDLImageResolution *resolution = response.displayCapabilities.screenParams.resolution;
+  _resolutionSize = CGSizeMake(resolution.resolutionWidth.integerValue, resolution.resolutionHeight.integerValue);
+  LogDebug(@"Resolution is %@", NSStringFromCGSize(_resolutionSize));
+    
   if (self.SDLRegisterAppInterfaceHandler) {
     self.SDLRegisterAppInterfaceHandler(response);
   }

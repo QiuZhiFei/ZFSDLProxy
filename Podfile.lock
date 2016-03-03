@@ -1,5 +1,6 @@
 PODS:
   - DOUAudioStreamer (0.2.13)
+  - JRSwizzle (1.0)
   - JxbDebugTool (3.8)
   - MAKVONotificationCenter (0.0.2)
   - NSLogger (1.5.1):
@@ -8,8 +9,9 @@ PODS:
   - SDWebImage (3.7.5):
     - SDWebImage/Core (= 3.7.5)
   - SDWebImage/Core (3.7.5)
-  - SmartDeviceLink-iOS (4.0.1)
+  - SmartDeviceLink-iOS (4.0.2)
   - ZFSDLProxy (1.0.0):
+    - JRSwizzle (~> 1.0)
     - SmartDeviceLink-iOS (~> 4.0.1)
 
 DEPENDENCIES:
@@ -26,11 +28,12 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   DOUAudioStreamer: 4970f2b2f3f15e479e52263ecdb2f0ebe0a0c317
+  JRSwizzle: dd5ead5d913a0f29e7f558200165849f006bb1e3
   JxbDebugTool: 78fb33429338b9ffa9169bdddd1c0b873a912c70
   MAKVONotificationCenter: eddfb85e77040323ee43a0fddbe616926ec005a8
   NSLogger: 5ed223a2436df96244e033be750656dacdeec034
   SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
-  SmartDeviceLink-iOS: 3b6273eb8b65a1bed43ffa03c72ccbfbca069fff
-  ZFSDLProxy: 35bded0a731fd9158181137f4cb7c639024e68d9
+  SmartDeviceLink-iOS: a6c95403bdbd5a8b56107c3b781ecd6edf41f247
+  ZFSDLProxy: 774b200bfe032339ccff3c9f1e240b715ab66fa5
 
 COCOAPODS: 0.39.0

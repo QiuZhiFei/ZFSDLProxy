@@ -1,12 +1,12 @@
 //
-//  DOUSDLManager+Manufacturer.h
+//  ZFProxyManager+Manufacturer.h
 //  ZFSmartDeviceLink-iOS
 //
-//  Created by zhifei on 16/2/14.
-//  Copyright © 2016年 ZhiFei(qiuzhifei521@gmail.com). All rights reserved.
+//  Created by zhifei on 3/3/16.
+//  Copyright © 2016 ZhiFei(qiuzhifei521@gmail.com). All rights reserved.
 //
 
-#import "DOUSDLManager.h"
+#import <ZFSDLProxy/ZFSDLProxy.h>
 
 typedef NS_ENUM(NSUInteger, ZFSDLManufacturer) {
   ZFSDLManufacturerNone = 0,
@@ -16,12 +16,12 @@ typedef NS_ENUM(NSUInteger, ZFSDLManufacturer) {
   ZFSDLManufacturerUnKnown
 };
 
-@interface DOUSDLManager (Manufacturer)
+@interface ZFProxyManager (Manufacturer)
 
 @property (nonatomic, assign, readonly) ZFSDLManufacturer manufacturer;
 
 - (void)resetSDLManufacturer:(SDLRegisterAppInterfaceResponse *)response;
 
-+ (BOOL)connectedAccessoryIsHaval;
++ (BOOL)isHavalValidAccessoryConnected;
 
 @end

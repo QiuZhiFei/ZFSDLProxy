@@ -7,6 +7,7 @@
 //
 
 #import "ZFProxyManager+ChoiceSet.h"
+#import "ZFMacros.h"
 
 #import <objc/runtime.h>
 
@@ -30,9 +31,16 @@
   }
   SDLCreateInteractionChoiceSet *choiceSetReq = [SDLRPCRequestFactory buildCreateInteractionChoiceSetWithID:interactionChoiceSetID
                                                                                                   choiceSet:choices
-                                                                                              correlationID:[self autoIncCorrIDNum]];
+                                                                                              correlationID:correlationID];
   
   [self.proxy sendRPC:choiceSetReq];
+}
+
+- (void)deleteChoiceSetsWithID:(NSNumber*)interactionChoiceSetID
+{
+  SDLDeleteInteractionChoiceSet *deleteReq = [SDLRPCRequestFactory buildDeleteInteractionChoiceSetWithID:interactionChoiceSetID
+                                                                                           correlationID:[self autoIncCorrIDNum]];
+  [self.proxy sendRPC:deleteReq];
 }
 
 - (SDLChoice *)choiceWithName:(NSString *)name
@@ -48,9 +56,17 @@
 - (void)onPerformInteractionResponse:(SDLPerformInteractionResponse *)response
 {
   if ([response.resultCode isEqual:[SDLResult SUCCESS]]) {
-    NSMutableArray *ids = self.zf_choiceSets[response.correlationID.stringValue][0];
-    ZFChoiceSetHandler handler = self.zf_choiceSets[response.correlationID.stringValue][1];
-    if ([ids containsObject:response.choiceID] && handler) {
+    __block NSArray *choiceHandlers = nil;
+    [self.zf_choiceSets enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, NSArray *tmpChoiceHandlers, BOOL * _Nonnull stop) {
+      if ([tmpChoiceHandlers[0] containsObject:response.choiceID]) {
+        choiceHandlers = tmpChoiceHandlers;
+        *stop = YES;
+      }
+    }];
+    
+    if (choiceHandlers) {
+      NSArray *ids = choiceHandlers[0];
+      ZFChoiceSetHandler handler = choiceHandlers[1];
       handler([ids indexOfObject:response.choiceID]);
     }
   }

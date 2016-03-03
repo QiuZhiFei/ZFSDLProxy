@@ -7,7 +7,6 @@
 //
 
 #import "DOUSDLManager.h"
-#import "DOUSDLManager+Manufacturer.h"
 #import "ZFRadioStation.h"
 #import "ZFSong.h"
 #import "DOUSDLInfo.h"
@@ -49,10 +48,6 @@ static const NSUInteger kHotChannelChoiceInteractionSetID = 100;
     [self _setupAPP];
     [self _setupProxy];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(_applicationTerminate)
-                                                 name:UIApplicationWillTerminateNotification
-                                               object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_updatePlayingInfo)
                                                  name:kZFRadioStationSongLikedChangedNotification
@@ -130,15 +125,13 @@ static const NSUInteger kHotChannelChoiceInteractionSetID = 100;
   };
   _proxyManager.SDLDisconnectedHandler = ^{
     LogDebug(@"SDL Disconnected Success");
-    if (wself.manufacturer == ZFSDLManufacturerHaval) {
+    if (wself.proxyManager.manufacturer == ZFSDLManufacturerHaval) {
       [wself stopHeartBeat];
     }
   };
   _proxyManager.SDLRegisterAppInterfaceHandler = ^(SDLRegisterAppInterfaceResponse *response) {
     LogDebug(@"SDL Register Interface make is %@", response.vehicleType.make);
-    [wself resetSDLManufacturer:response];
-    LogDebug(@"Manufacturer is %ld", (unsigned long)wself.manufacturer);
-    if (wself.manufacturer == ZFSDLManufacturerHaval) {
+    if (wself.proxyManager.manufacturer == ZFSDLManufacturerHaval) {
       [wself startHeartBeat];
     }
   };
@@ -213,36 +206,38 @@ static const NSUInteger kHotChannelChoiceInteractionSetID = 100;
 - (void)_updatePlayingInfo
 {
 #pragma message "这里暂时用 song title 作为唯一标识，真正项目中更倾向于使用 id 的形式"
-  ZFSong *curSong = [[ZFRadioStation sharedRadioStation] curSong];
-  NSString *albumCoverName = curSong.title;
-  SDLImage *sdlImage = [_proxyManager SDLImageNamed:albumCoverName];
-  
-  [self.proxyManager showMessageWithField1:curSong.title
-                                    field2:curSong.artist
-                                mediaTrack:@"mediatrack"
-                                   graphic:sdlImage
-                               softButtons:[self _defaultSoftButtons]];
-  if (sdlImage == nil
-      && curSong.albumCoverUrl.absoluteString.length > 0) {
-    [[SDWebImageManager sharedManager] downloadImageWithURL:curSong.albumCoverUrl
-                                                    options:SDWebImageRetryFailed
-                                                   progress:NULL
-                                                  completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-                                                    if (finished && error == nil) {
-                                                      [self.proxyManager putImage:image
-                                                                             name:albumCoverName
-                                                                    correlationID:self.proxyManager.autoIncCorrIDNum
-                                                                         finished:^(BOOL success, SDLPutFileResponse *response) {
-                                                                           if (success) {
-                                                                             [self.proxyManager showMessageWithField1:curSong.title
-                                                                                                               field2:curSong.artist
-                                                                                                           mediaTrack:@"mediatrack"
-                                                                                                              graphic:[self.proxyManager SDLImageNamed:albumCoverName]
-                                                                                                          softButtons:[self _defaultSoftButtons]];
-                                                                           }
-                                                                         }];
-                                                    }
-                                                  }];
+  if (self.state == ZFProxyStateConnected) {
+    ZFSong *curSong = [[ZFRadioStation sharedRadioStation] curSong];
+    NSString *albumCoverName = curSong.title;
+    SDLImage *sdlImage = [_proxyManager SDLImageNamed:albumCoverName];
+    
+    [self.proxyManager showMessageWithField1:curSong.title
+                                      field2:curSong.artist
+                                  mediaTrack:@"mediatrack"
+                                     graphic:sdlImage
+                                 softButtons:[self _defaultSoftButtons]];
+    if (sdlImage == nil
+        && curSong.albumCoverUrl.absoluteString.length > 0) {
+      [[SDWebImageManager sharedManager] downloadImageWithURL:curSong.albumCoverUrl
+                                                      options:SDWebImageRetryFailed
+                                                     progress:NULL
+                                                    completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                                                      if (finished && error == nil) {
+                                                        [self.proxyManager putImage:image
+                                                                               name:albumCoverName
+                                                                      correlationID:self.proxyManager.autoIncCorrIDNum
+                                                                           finished:^(BOOL success, SDLPutFileResponse *response) {
+                                                                             if (success) {
+                                                                               [self.proxyManager showMessageWithField1:curSong.title
+                                                                                                                 field2:curSong.artist
+                                                                                                             mediaTrack:@"mediatrack"
+                                                                                                                graphic:[self.proxyManager SDLImageNamed:albumCoverName]
+                                                                                                            softButtons:[self _defaultSoftButtons]];
+                                                                             }
+                                                                           }];
+                                                      }
+                                                    }];
+    }
   }
 }
 
@@ -293,17 +288,21 @@ static const NSUInteger kHotChannelChoiceInteractionSetID = 100;
 
 - (void)_songChanged
 {
-  [self _sendMediaClockTimerWithUpdateMode:[SDLUpdateMode CLEAR]];
+  if (self.state == ZFProxyStateConnected) {
+    [self _sendMediaClockTimerWithUpdateMode:[SDLUpdateMode CLEAR]];
+  }
 }
 
 - (void)_playerStatusChanged
 {
-  LogDebug("RadioStation status == %lu", (unsigned long)[[ZFRadioStation sharedRadioStation] status]);
+  if (self.state == ZFProxyStateConnected) {
+    LogDebug("RadioStation status == %lu", (unsigned long)[[ZFRadioStation sharedRadioStation] status]);
 #pragma message "AudioStreamer 导致 status 短时间内大量的调用，先 hack"
-  [NSObject cancelPreviousPerformRequestsWithTarget:self];
-  [self performSelector:@selector(_updateStatusPlayingInfo)
-             withObject:nil
-             afterDelay:0.5];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [self performSelector:@selector(_updateStatusPlayingInfo)
+               withObject:nil
+               afterDelay:0.5];
+  }
 }
 
 - (void)_updateStatusPlayingInfo
@@ -315,11 +314,6 @@ static const NSUInteger kHotChannelChoiceInteractionSetID = 100;
   } else {
     [self _sendMediaClockTimerWithUpdateMode:[SDLUpdateMode PAUSE]];
   }
-}
-
-- (void)_applicationTerminate
-{
-  [self stopProxy];
 }
 
 - (void)_sendMediaClockTimerWithUpdateMode:(SDLUpdateMode *)mode

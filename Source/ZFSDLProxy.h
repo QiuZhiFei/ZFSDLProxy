@@ -20,3 +20,4 @@
 #import "ZFProxyManager+Message.h"
 #import "ZFProxyManager+Image.h"
 #import "ZFProxyManager+MediaClockTimer.h"
+#import "ZFProxyManager+Manufacturer.h"

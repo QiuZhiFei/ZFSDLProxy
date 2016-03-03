@@ -20,6 +20,8 @@ typedef void(^ZFChoiceSetHandler)(NSUInteger index);
               correlationID:(NSNumber*)correlationID
                     handler:(ZFChoiceSetHandler)handler;
 
+- (void)deleteChoiceSetsWithID:(NSNumber*)interactionChoiceSetID;
+
 - (SDLChoice *)choiceWithName:(NSString *)name
                      choiceID:(NSNumber *)choiceID;
 

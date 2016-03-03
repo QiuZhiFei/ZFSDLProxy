@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0B87BA5A1C703CE700716DCF /* DOUSDLManager+Manufacturer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B87BA591C703CE700716DCF /* DOUSDLManager+Manufacturer.m */; };
 		0B90CE1C1C606004004D9BE3 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B90CE1B1C606004004D9BE3 /* icon.png */; };
 		0B90CE631C609030004D9BE3 /* ZF_Ban.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B90CE5D1C609030004D9BE3 /* ZF_Ban.png */; };
 		0B90CE641C609030004D9BE3 /* ZF_Collect.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B90CE5E1C609030004D9BE3 /* ZF_Collect.png */; };
@@ -47,8 +46,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0B87BA581C703CE700716DCF /* DOUSDLManager+Manufacturer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DOUSDLManager+Manufacturer.h"; sourceTree = "<group>"; };
-		0B87BA591C703CE700716DCF /* DOUSDLManager+Manufacturer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DOUSDLManager+Manufacturer.m"; sourceTree = "<group>"; };
 		0B90CE1B1C606004004D9BE3 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		0B90CE5D1C609030004D9BE3 /* ZF_Ban.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZF_Ban.png; sourceTree = "<group>"; };
 		0B90CE5E1C609030004D9BE3 /* ZF_Collect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZF_Collect.png; sourceTree = "<group>"; };
@@ -161,8 +158,6 @@
 				0BF081091C5F406B007E99A1 /* DOUSDLManager.h */,
 				0BF0810A1C5F406B007E99A1 /* DOUSDLManager.m */,
 				0B939EEE1C7039E100D139D6 /* DOUSDLInfo.h */,
-				0B87BA581C703CE700716DCF /* DOUSDLManager+Manufacturer.h */,
-				0B87BA591C703CE700716DCF /* DOUSDLManager+Manufacturer.m */,
 				0BB016251C5A28B700FDF7EF /* Main.storyboard */,
 				0BB016281C5A28B700FDF7EF /* Assets.xcassets */,
 				0BB0162A1C5A28B700FDF7EF /* LaunchScreen.storyboard */,
@@ -407,7 +402,6 @@
 				0BB016241C5A28B700FDF7EF /* ViewController.m in Sources */,
 				0B90CE871C61D8AD004D9BE3 /* ZFRadioStation.m in Sources */,
 				0BB016211C5A28B700FDF7EF /* AppDelegate.m in Sources */,
-				0B87BA5A1C703CE700716DCF /* DOUSDLManager+Manufacturer.m in Sources */,
 				0B90CE8A1C61DA23004D9BE3 /* ZFSong.m in Sources */,
 				0BB0161E1C5A28B700FDF7EF /* main.m in Sources */,
 			);

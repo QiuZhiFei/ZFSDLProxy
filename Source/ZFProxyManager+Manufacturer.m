@@ -1,26 +1,27 @@
 //
-//  DOUSDLManager+Manufacturer.m
+//  ZFProxyManager+Manufacturer.m
 //  ZFSmartDeviceLink-iOS
 //
-//  Created by zhifei on 16/2/14.
-//  Copyright © 2016年 ZhiFei(qiuzhifei521@gmail.com). All rights reserved.
+//  Created by zhifei on 3/3/16.
+//  Copyright © 2016 ZhiFei(qiuzhifei521@gmail.com). All rights reserved.
 //
 
-#import "DOUSDLManager+Manufacturer.h"
+#import "ZFProxyManager+Manufacturer.h"
 
 #import <objc/runtime.h>
 
-@implementation DOUSDLManager (Manufacturer)
+@implementation ZFProxyManager (Manufacturer)
 
 - (void)resetSDLManufacturer:(SDLRegisterAppInterfaceResponse *)response
 {
   NSString *make = response.vehicleType.make;
+  LogDebug(@"SDLManufacturer make == %@", make);
   ZFSDLManufacturer manufacturer = ZFSDLManufacturerNone;
   if (make) {
     manufacturer = ZFSDLManufacturerUnKnown;
     if ([make isEqualToString:@"Ford"]) {
       manufacturer = ZFSDLManufacturerFord;
-    } else if ([make isEqualToString:@"Haval"]) {
+    } else if ([make isEqualToString:@"HAVAL"]) {
       manufacturer = ZFSDLManufacturerHaval;
     } else if ([make isEqualToString:@"Pateo"]) {
       manufacturer = ZFSDLManufacturerPateo;
@@ -47,7 +48,7 @@
                            OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-+ (BOOL)connectedAccessoryIsHaval
++ (BOOL)isHavalValidAccessoryConnected
 {
   __block BOOL isConnected = NO;
   [[[EAAccessoryManager sharedAccessoryManager] connectedAccessories] enumerateObjectsUsingBlock:^(EAAccessory * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
