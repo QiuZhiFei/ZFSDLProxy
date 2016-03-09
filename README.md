@@ -1,5 +1,5 @@
 
-豆瓣FM 连接 [SDL](https://github.com/QiuZhiFei/sdl_ios) Demo。
+A convenient connection between app and car base on [SmartDeviceLink-iOS](https://github.com/QiuZhiFei/sdl_ios)
 
 ![](Snapshot/server.JPG)
 
