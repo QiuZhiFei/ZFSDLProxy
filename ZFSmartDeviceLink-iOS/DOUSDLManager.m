@@ -118,7 +118,6 @@ static const NSUInteger kHotChannelChoiceInteractionSetID = 100;
   _proxyManager.SDLConnectedSuccessHandler = ^{
     LogDebug(@"SDL Connected Success");
     [wself _updateStatusPlayingInfo];
-#pragma message "感觉不需要添加 help，直接添加 command 就可以了"
     [wself _addCommand];
     [wself _addSubscribeButton];
     [wself _addHotChoiceSet];
@@ -160,7 +159,6 @@ static const NSUInteger kHotChannelChoiceInteractionSetID = 100;
                                commands:@[@"Hotchoice"]
                           correlationID:_proxyManager.autoIncCorrIDNum
                                 handler:^{
-#pragma message "hot choice 旧版正常，新车机不展示"
                                   LogDebug(@"Hotchoice ~ ");
                                   [wself.proxyManager showPerformInteractionWithInitialPrompt:@"prompt"
                                                                                   initialText:@"initialText"

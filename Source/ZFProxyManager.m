@@ -190,7 +190,6 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
 {
   LogDebug(@"HMILevel == %@", [SDLHMILevel NONE].description);
   if (notification.hmiLevel == SDLHMILevel.NONE) {
-#pragma message "none 如何处理"
   } else if (notification.hmiLevel == SDLHMILevel.FULL) {
     if (!_isFirstHMIFull) {
       _isFirstHMIFull = YES;

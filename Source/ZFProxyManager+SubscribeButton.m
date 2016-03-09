@@ -21,7 +21,6 @@
                      correlationID:(NSNumber *)correlationID
                            handler:(ZFSubscribeHandler)handler
 {
-#pragma message "这里使用 name 可能会有问题"
   [self.zf_subscribeButtons setValue:handler forKey:name.value];
   LogDebug(@"SDLButton: name == %@", name.value);
   SDLSubscribeButton *button = [SDLRPCRequestFactory buildSubscribeButtonWithName:name
