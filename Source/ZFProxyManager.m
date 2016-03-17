@@ -17,7 +17,7 @@
 
 NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotification";
 
-@interface ZFProxyManager () 
+@interface ZFProxyManager ()
 @property (nonatomic, assign) BOOL           isFirstHMIFull;
 @property (nonatomic, assign) ZFProxyState   state;
 @property (nonatomic, assign) BOOL           pausedByUser;
@@ -35,9 +35,13 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
   NSParameterAssert(app);
   self = [super init];
   if (self) {
+    [[EAAccessoryManager sharedAccessoryManager] registerForLocalNotifications];
     [SDLProxy jr_swizzleMethod:@selector(onProtocolMessageReceived:)
                     withMethod:@selector(zf_onProtocolMessageReceived:)
                          error:nil];
+    [SDLIAPTransport jr_swizzleMethod:@selector(sdl_dataStreamEndedHandler)
+                           withMethod:@selector(zf_sdl_dataStreamEndedHandler)
+                                error:nil];
     
     [self _resetData];
     
@@ -69,13 +73,18 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
 
 - (void)startProxy
 {
+  if (![[self class] isSDLValidAccessoryConnected]) {
+    LogDebug(@"No proxy connected, don't need create proxy object.");
+    return;
+  }
+  
   if ([[self class] isHavalValidAccessoryConnected]) {
-    if ([UIApplication sharedApplication].applicationState != UIApplicationStateActive) {
+    if (UIApplicationStateActive == [UIApplication sharedApplication].applicationState) {
+      LogDebug(@"Haval start proxy");
+      [self _startProxy];
+    } else {
       LogDebug(@"Failed to start proxy, application is inactive");
-      return;
     }
-    LogDebug(@"Haval start proxy");
-    [self _startProxy];
   } else {
     LogDebug(@"Normal start proxy");
     [self _startProxy];
@@ -164,7 +173,7 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
 {
   LogDebug(@"onProxyOpened ~");
   self.state = ZFProxyStateConnected;
-
+  
   SDLRegisterAppInterface *regRequest = [SDLRPCRequestFactory
                                          buildRegisterAppInterfaceWithAppName:self.app.name
                                          languageDesired:self.app.lang

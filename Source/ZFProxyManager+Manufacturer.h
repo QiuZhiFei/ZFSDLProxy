@@ -23,5 +23,6 @@ typedef NS_ENUM(NSUInteger, ZFSDLManufacturer) {
 - (void)resetSDLManufacturer:(SDLRegisterAppInterfaceResponse *)response;
 
 + (BOOL)isHavalValidAccessoryConnected;
++ (BOOL)isSDLValidAccessoryConnected;
 
 @end

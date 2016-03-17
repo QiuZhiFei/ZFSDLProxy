@@ -60,4 +60,19 @@
   return isConnected;
 }
 
++ (BOOL)isSDLValidAccessoryConnected
+{
+  NSString *const legacyProtocolString = @"com.ford.sync.prot0";
+  NSString *const controlProtocolString = @"com.smartdevicelink.prot0";
+  for (EAAccessory* accessory in [[EAAccessoryManager sharedAccessoryManager] connectedAccessories]) {
+    for (NSString* protocolString in [accessory protocolStrings]) {
+      if ([protocolString isEqualToString:legacyProtocolString]
+          || [protocolString isEqualToString:controlProtocolString]) {
+        return YES;
+      }
+    }
+  }
+  return NO;
+}
+
 @end
