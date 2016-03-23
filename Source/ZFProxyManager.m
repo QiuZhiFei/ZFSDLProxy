@@ -148,13 +148,31 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
 
 - (void)_lockUserInterface
 {
-  if (self.SDLConnectedSuccessHandler) {
-    self.SDLConnectedSuccessHandler();
+  LogDebug(@"SDL Lock UerInterface");
+  if (self.SDLLockUserInterfaceHandler) {
+    self.SDLLockUserInterfaceHandler();
   }
 }
 
 - (void)_unlockUserInterface
 {
+  LogDebug(@"SDL Unlock UerInterface");
+  if (self.SDLUnlockUserInterfaceHandler) {
+    self.SDLUnlockUserInterfaceHandler();
+  }
+}
+
+- (void)_connectedSuccess
+{
+  LogDebug(@"SDL Connected Success"); 
+  if (self.SDLConnectedSuccessHandler) {
+    self.SDLConnectedSuccessHandler();
+  }
+}
+
+- (void)_disconnectedSuccess
+{
+  LogDebug(@"SDL Disconnected Success");
   if (self.SDLDisconnectedHandler) {
     self.SDLDisconnectedHandler();
   }
@@ -188,6 +206,7 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
 {
   LogDebug(@"onProxyClosed");
   [self _unlockUserInterface];
+  [self _disconnectedSuccess];
   if (self.app.restartIfProxyClosed) {
     [self resetProxy];
   } else {
@@ -197,16 +216,20 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
 
 - (void)onOnHMIStatus:(SDLOnHMIStatus *)notification
 {
-  LogDebug(@"HMILevel == %@", [SDLHMILevel NONE].description);
+  LogDebug(@"HMILevel == %@",  notification.hmiLevel.description);
   if (notification.hmiLevel == SDLHMILevel.NONE) {
+    [self _unlockUserInterface];
+    _isFirstHMIFull = NO;
   } else if (notification.hmiLevel == SDLHMILevel.FULL) {
+    [self _lockUserInterface];
     if (!_isFirstHMIFull) {
       _isFirstHMIFull = YES;
-      [self _lockUserInterface];
+      [self _connectedSuccess];
     }
   }
   
   if (self.app.isMediaApplication) {
+    LogDebug(@"audioStreaming state == %@", notification.audioStreamingState);
     if ([[SDLAudioStreamingState NOT_AUDIBLE] isEqual:notification.audioStreamingState ]) {
       if (self.SDLAudioStreamingStateChanged) {
         self.SDLAudioStreamingStateChanged(YES);

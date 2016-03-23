@@ -9,6 +9,7 @@
 #import "ZFProxyManager+Image.h"
 #import "ZFPutFile.h"
 #import "ZFProxyManager+PutFile.h"
+#import "ZFMacros.h"
 
 #import <objc/runtime.h>
 
@@ -27,6 +28,7 @@
   if (data == nil) {
     data = UIImagePNGRepresentation(image);
   }
+  LogDebug(@"Put Image == %@  size == %@", name, NSStringFromCGSize(image.size));
 #pragma message "需要设置图片的大小限制"
   if (data) {
     [self.zf_putImages setValue:correlationID forKey:name];

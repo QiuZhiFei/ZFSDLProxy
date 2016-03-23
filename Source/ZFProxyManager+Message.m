@@ -7,6 +7,7 @@
 //
 
 #import "ZFProxyManager+Message.h"
+#import "ZFMacros.h"
 
 @implementation ZFProxyManager (Message)
 
@@ -33,6 +34,7 @@
                       graphic:(SDLImage *)graphic
                   softButtons:(NSArray *)buttons
 {
+  LogDebug(@"Show message, field == %@", field1);
   SDLShow *msg = [SDLRPCRequestFactory buildShowWithMainField1:field1
                                                     mainField2:field2
                                                     mainField3:nil

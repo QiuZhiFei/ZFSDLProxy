@@ -7,6 +7,7 @@
 //
 
 #import "ZFProxyManager+MediaClockTimer.h"
+#import "ZFMacros.h"
 
 @implementation ZFProxyManager (MediaClockTimer)
 
@@ -15,6 +16,7 @@
                                   endTime:(NSTimeInterval)endTime
                             correlationID:(NSNumber *)correlationID
 {
+  LogDebug(@"Send Media Clock, %@", mode.description);
   SDLSetMediaClockTimer *scmt = [[SDLSetMediaClockTimer alloc] init];
   scmt.startTime = [self _timeIntervalToStartTime:startTime];
   scmt.endTime = [self _timeIntervalToStartTime:endTime];
