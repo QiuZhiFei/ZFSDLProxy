@@ -20,7 +20,6 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
 @interface ZFProxyManager ()
 @property (nonatomic, assign) BOOL           isFirstHMIFull;
 @property (nonatomic, assign) ZFProxyState   state;
-@property (nonatomic, assign) BOOL           pausedByUser;
 
 @property (nonatomic, assign) BOOL           isGraphicsSupported;
 @property (nonatomic, strong) SDLDisplayType *displayType;

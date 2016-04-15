@@ -22,7 +22,26 @@
 - (void)putImage:(UIImage *)image
             name:(NSString *)name
    correlationID:(NSNumber *)correlationID
-        finished:(ZFPutImageHandler)handler;
+        finished:(ZFPutImageHandler)handler
+{
+  NSData *data = UIImageJPEGRepresentation(image, 1);
+  if (data == nil) {
+    data = UIImagePNGRepresentation(image);
+  }
+  if (data) {
+    [self putImage:image
+              name:name
+          fileType:[[self class] _typeForImageData:data]
+     correlationID:correlationID
+          finished:handler];
+  }
+}
+
+- (void)putImage:(UIImage *)image
+            name:(NSString *)name
+        fileType:(SDLFileType *)fileType
+   correlationID:(NSNumber *)correlationID
+        finished:(ZFPutImageHandler)handler
 {
   NSData *data = UIImageJPEGRepresentation(image, 1);
   if (data == nil) {
@@ -34,7 +53,7 @@
     [self.zf_putImages setValue:correlationID forKey:name];
     ZFPutFile *file = [ZFPutFile fileWithFileName:name
                                          bulkData:data
-                                         fileType:[[self class] _typeForImageData:data]
+                                         fileType:fileType
                                  persisistentFile:[NSNumber numberWithBool:0]
                                     correlationID:correlationID];
     [self putFile:file finished:handler];
@@ -50,6 +69,7 @@
     image.value = file.syncFileName;
     image.imageType = [SDLImageType DYNAMIC];
   }
+  LogDebug(@"get image %@, in Images == %@", image, self.zf_putImages);
   return image;
 }
 

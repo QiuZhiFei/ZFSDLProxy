@@ -169,9 +169,11 @@ static const NSUInteger kHotChannelChoiceInteractionSetID = 100;
 
 - (void)_addSubscribeButton
 {
+  __weak typeof(self) weakSelf = self;
   [_proxyManager addSubscribeButtonWithName:[SDLButtonName OK]
                               correlationID:_proxyManager.autoIncCorrIDNum
                                     handler:^{
+                                      weakSelf.proxyManager.pausedByUser = [[ZFRadioStation sharedRadioStation] isAudioPlaying];
                                       [[ZFRadioStation sharedRadioStation] toggleAudioPlaying];
                                     }];
   [_proxyManager addSubscribeButtonWithName:[SDLButtonName SEEKRIGHT]

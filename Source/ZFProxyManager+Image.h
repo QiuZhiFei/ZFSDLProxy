@@ -19,6 +19,12 @@ typedef void(^ZFPutImageHandler)(BOOL success, SDLPutFileResponse *response);
    correlationID:(NSNumber *)correlationID
         finished:(ZFPutImageHandler)handler;
 
+- (void)putImage:(UIImage *)image
+            name:(NSString *)name
+        fileType:(SDLFileType *)fileType
+   correlationID:(NSNumber *)correlationID
+        finished:(ZFPutImageHandler)handler;
+
 - (SDLImage *)SDLImageNamed:(NSString *)name;
 
 @end

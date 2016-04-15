@@ -28,6 +28,7 @@ FOUNDATION_EXTERN NSString * const kZFProxyStateChangedNotification;
 @property (nonatomic, readonly, strong) ZFAppearance *app;
 @property (nonatomic, readonly, assign) BOOL         isGraphicsSupported;
 @property (nonatomic, readonly, assign) CGSize       resolutionSize;
+@property (nonatomic, assign          ) BOOL         pausedByUser;
 
 /**
  *  autoIncCorrIDNum 1000~ 
