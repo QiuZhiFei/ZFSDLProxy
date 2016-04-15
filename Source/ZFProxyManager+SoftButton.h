@@ -16,5 +16,6 @@ typedef void(^ZFSoftButtonHandler)();
                                        image:(SDLImage *)image
                                 softButtonID:(NSNumber *)softButtonID
                                      handler:(ZFSoftButtonHandler)handler;
+- (void)checkoutButtonType:(SDLSoftButton *)button;
 
 @end

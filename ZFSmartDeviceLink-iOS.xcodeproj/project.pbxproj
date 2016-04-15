@@ -8,12 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0B90CE1C1C606004004D9BE3 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B90CE1B1C606004004D9BE3 /* icon.png */; };
-		0B90CE631C609030004D9BE3 /* ZF_Ban.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B90CE5D1C609030004D9BE3 /* ZF_Ban.png */; };
-		0B90CE641C609030004D9BE3 /* ZF_Collect.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B90CE5E1C609030004D9BE3 /* ZF_Collect.png */; };
-		0B90CE651C609030004D9BE3 /* ZF_Like.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B90CE5F1C609030004D9BE3 /* ZF_Like.png */; };
-		0B90CE661C609030004D9BE3 /* ZF_Share.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B90CE601C609030004D9BE3 /* ZF_Share.png */; };
-		0B90CE671C609030004D9BE3 /* ZF_Uncollect.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B90CE611C609030004D9BE3 /* ZF_Uncollect.png */; };
-		0B90CE681C609030004D9BE3 /* ZF_Unlike.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B90CE621C609030004D9BE3 /* ZF_Unlike.png */; };
 		0B90CE871C61D8AD004D9BE3 /* ZFRadioStation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B90CE861C61D8AD004D9BE3 /* ZFRadioStation.m */; };
 		0B90CE8A1C61DA23004D9BE3 /* ZFSong.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B90CE891C61DA23004D9BE3 /* ZFSong.m */; };
 		0BB0161E1C5A28B700FDF7EF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB0161D1C5A28B700FDF7EF /* main.m */; };
@@ -25,6 +19,12 @@
 		0BB016371C5A28B700FDF7EF /* ZFSmartDeviceLink_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB016361C5A28B700FDF7EF /* ZFSmartDeviceLink_iOSTests.m */; };
 		0BB016421C5A28B700FDF7EF /* ZFSmartDeviceLink_iOSUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB016411C5A28B700FDF7EF /* ZFSmartDeviceLink_iOSUITests.m */; };
 		0BF0810B1C5F406B007E99A1 /* DOUSDLManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF0810A1C5F406B007E99A1 /* DOUSDLManager.m */; };
+		37166A271CC0E69700A1A375 /* haval_ban.png in Resources */ = {isa = PBXBuildFile; fileRef = 37166A211CC0E69700A1A375 /* haval_ban.png */; };
+		37166A281CC0E69700A1A375 /* haval_collect.png in Resources */ = {isa = PBXBuildFile; fileRef = 37166A221CC0E69700A1A375 /* haval_collect.png */; };
+		37166A291CC0E69700A1A375 /* haval_like.png in Resources */ = {isa = PBXBuildFile; fileRef = 37166A231CC0E69700A1A375 /* haval_like.png */; };
+		37166A2A1CC0E69700A1A375 /* haval_share.png in Resources */ = {isa = PBXBuildFile; fileRef = 37166A241CC0E69700A1A375 /* haval_share.png */; };
+		37166A2B1CC0E69700A1A375 /* haval_uncollect.png in Resources */ = {isa = PBXBuildFile; fileRef = 37166A251CC0E69700A1A375 /* haval_uncollect.png */; };
+		37166A2C1CC0E69700A1A375 /* haval_unlike.png in Resources */ = {isa = PBXBuildFile; fileRef = 37166A261CC0E69700A1A375 /* haval_unlike.png */; };
 		E5B2D46D6EF36BBFE1A724B2 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF7C3E84348E809DF1E8E2D /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -47,12 +47,6 @@
 
 /* Begin PBXFileReference section */
 		0B90CE1B1C606004004D9BE3 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
-		0B90CE5D1C609030004D9BE3 /* ZF_Ban.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZF_Ban.png; sourceTree = "<group>"; };
-		0B90CE5E1C609030004D9BE3 /* ZF_Collect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZF_Collect.png; sourceTree = "<group>"; };
-		0B90CE5F1C609030004D9BE3 /* ZF_Like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZF_Like.png; sourceTree = "<group>"; };
-		0B90CE601C609030004D9BE3 /* ZF_Share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZF_Share.png; sourceTree = "<group>"; };
-		0B90CE611C609030004D9BE3 /* ZF_Uncollect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZF_Uncollect.png; sourceTree = "<group>"; };
-		0B90CE621C609030004D9BE3 /* ZF_Unlike.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZF_Unlike.png; sourceTree = "<group>"; };
 		0B90CE851C61D8AD004D9BE3 /* ZFRadioStation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFRadioStation.h; sourceTree = "<group>"; };
 		0B90CE861C61D8AD004D9BE3 /* ZFRadioStation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFRadioStation.m; sourceTree = "<group>"; };
 		0B90CE881C61DA23004D9BE3 /* ZFSong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFSong.h; sourceTree = "<group>"; };
@@ -76,6 +70,12 @@
 		0BB016431C5A28B700FDF7EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0BF081091C5F406B007E99A1 /* DOUSDLManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOUSDLManager.h; sourceTree = "<group>"; };
 		0BF0810A1C5F406B007E99A1 /* DOUSDLManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOUSDLManager.m; sourceTree = "<group>"; };
+		37166A211CC0E69700A1A375 /* haval_ban.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = haval_ban.png; sourceTree = "<group>"; };
+		37166A221CC0E69700A1A375 /* haval_collect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = haval_collect.png; sourceTree = "<group>"; };
+		37166A231CC0E69700A1A375 /* haval_like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = haval_like.png; sourceTree = "<group>"; };
+		37166A241CC0E69700A1A375 /* haval_share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = haval_share.png; sourceTree = "<group>"; };
+		37166A251CC0E69700A1A375 /* haval_uncollect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = haval_uncollect.png; sourceTree = "<group>"; };
+		37166A261CC0E69700A1A375 /* haval_unlike.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = haval_unlike.png; sourceTree = "<group>"; };
 		CAF7C3E84348E809DF1E8E2D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D30C8F403B584EAB712B7E93 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		FE2E398BCAB0AC3F93C89CA5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -145,12 +145,12 @@
 			children = (
 				0B90CE841C61D896004D9BE3 /* RadioStation */,
 				0B90CE1B1C606004004D9BE3 /* icon.png */,
-				0B90CE5D1C609030004D9BE3 /* ZF_Ban.png */,
-				0B90CE5E1C609030004D9BE3 /* ZF_Collect.png */,
-				0B90CE5F1C609030004D9BE3 /* ZF_Like.png */,
-				0B90CE601C609030004D9BE3 /* ZF_Share.png */,
-				0B90CE611C609030004D9BE3 /* ZF_Uncollect.png */,
-				0B90CE621C609030004D9BE3 /* ZF_Unlike.png */,
+				37166A211CC0E69700A1A375 /* haval_ban.png */,
+				37166A221CC0E69700A1A375 /* haval_collect.png */,
+				37166A231CC0E69700A1A375 /* haval_like.png */,
+				37166A241CC0E69700A1A375 /* haval_share.png */,
+				37166A251CC0E69700A1A375 /* haval_uncollect.png */,
+				37166A261CC0E69700A1A375 /* haval_unlike.png */,
 				0BB0161F1C5A28B700FDF7EF /* AppDelegate.h */,
 				0BB016201C5A28B700FDF7EF /* AppDelegate.m */,
 				0BB016221C5A28B700FDF7EF /* ViewController.h */,
@@ -316,16 +316,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37166A2C1CC0E69700A1A375 /* haval_unlike.png in Resources */,
+				37166A2A1CC0E69700A1A375 /* haval_share.png in Resources */,
+				37166A291CC0E69700A1A375 /* haval_like.png in Resources */,
 				0B90CE1C1C606004004D9BE3 /* icon.png in Resources */,
-				0B90CE681C609030004D9BE3 /* ZF_Unlike.png in Resources */,
-				0B90CE661C609030004D9BE3 /* ZF_Share.png in Resources */,
+				37166A271CC0E69700A1A375 /* haval_ban.png in Resources */,
+				37166A2B1CC0E69700A1A375 /* haval_uncollect.png in Resources */,
 				0BB0162C1C5A28B700FDF7EF /* LaunchScreen.storyboard in Resources */,
-				0B90CE641C609030004D9BE3 /* ZF_Collect.png in Resources */,
+				37166A281CC0E69700A1A375 /* haval_collect.png in Resources */,
 				0BB016291C5A28B700FDF7EF /* Assets.xcassets in Resources */,
 				0BB016271C5A28B700FDF7EF /* Main.storyboard in Resources */,
-				0B90CE631C609030004D9BE3 /* ZF_Ban.png in Resources */,
-				0B90CE651C609030004D9BE3 /* ZF_Like.png in Resources */,
-				0B90CE671C609030004D9BE3 /* ZF_Uncollect.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

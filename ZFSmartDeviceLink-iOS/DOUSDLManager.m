@@ -14,6 +14,13 @@
 #import <SDWebImage/SDWebImageManager.h>
 #import <MAKVONotificationCenter/MAKVONotificationCenter.h>
 
+static NSString * const kSDLBanImageName       = @"haval_ban";
+static NSString * const kSDLShareImageName     = @"haval_share";
+static NSString * const kSDLCollectImageName   = @"haval_collect";
+static NSString * const kSDLUnCollectImageName = @"haval_uncollect";
+static NSString * const kSDLLikeImageName      = @"haval_like";
+static NSString * const kSDLUnlikeImageName    = @"haval_unlike";
+
 // 0 ~ 999  constantID
 static const NSUInteger kHotChannelChoiceInteractionSetID = 100;
 
@@ -117,10 +124,12 @@ static const NSUInteger kHotChannelChoiceInteractionSetID = 100;
   typeof(self) __weak wself = self;
   _proxyManager.SDLConnectedSuccessHandler = ^{
     LogDebug(@"SDL Connected Success");
-    [wself _updateStatusPlayingInfo];
-    [wself _addCommand];
-    [wself _addSubscribeButton];
-    [wself _addHotChoiceSet];
+    [wself _inputConstantImagesCompleted:^{
+      [wself _updateStatusPlayingInfo];
+      [wself _addCommand];
+      [wself _addSubscribeButton];
+      [wself _addHotChoiceSet];
+    }];
   };
   _proxyManager.SDLDisconnectedHandler = ^{
     LogDebug(@"SDL Disconnected Success");
@@ -245,43 +254,56 @@ static const NSUInteger kHotChannelChoiceInteractionSetID = 100;
 {
   if (_playStatusButton == nil) {
     _playStatusButton = [_proxyManager zf_buildSDLSoftButtonText:@"喜欢"
-                                                           image:[_proxyManager SDLImageNamed:@"ZF_Like"]
+                                                           image:nil
                                                     softButtonID:_proxyManager.autoIncCorrIDNum
                                                          handler:^{
                                                            LogDebug(@"like");
                                                            [[ZFRadioStation sharedRadioStation] likeSong];
                                                          }];
   }
-  _playStatusButton.text = [[[ZFRadioStation sharedRadioStation] curSong] likeit] ? @"不喜欢" : @"喜欢";
+  BOOL likeit = [[[ZFRadioStation sharedRadioStation] curSong] likeit];
+  _playStatusButton.text = likeit ? @"不喜欢" : @"喜欢";
+  _playStatusButton.image = likeit ? [_proxyManager SDLImageNamed:kSDLUnlikeImageName] : [_proxyManager SDLImageNamed:kSDLLikeImageName];
   
   if (_collectChannelButton == nil) {
     _collectChannelButton = [_proxyManager zf_buildSDLSoftButtonText:@"收藏"
-                                                               image:[_proxyManager SDLImageNamed:@"ZF_Collect"]
+                                                               image:nil
                                                         softButtonID:_proxyManager.autoIncCorrIDNum
                                                              handler:^{
                                                                LogDebug(@"collect");
                                                                [[ZFRadioStation sharedRadioStation] collectSong];
                                                              }];
   }
-  _collectChannelButton.text = [[[ZFRadioStation sharedRadioStation] curSong] collected] ? @"取消收藏" : @"添加收藏";
+  BOOL collected = [[[ZFRadioStation sharedRadioStation] curSong] collected];
+  _collectChannelButton.text = collected ? @"取消收藏" : @"添加收藏";
+  _collectChannelButton.image = collected ? [_proxyManager SDLImageNamed:kSDLUnCollectImageName] : [_proxyManager SDLImageNamed:kSDLCollectImageName];
   
   if (_shareButton == nil) {
     _shareButton = [_proxyManager zf_buildSDLSoftButtonText:@"分享"
-                                                      image:[_proxyManager SDLImageNamed:@"ZF_Share"]
+                                                      image:nil
                                                softButtonID:_proxyManager.autoIncCorrIDNum
                                                     handler:^{
                                                       LogDebug(@"share");
                                                     }];
   }
+  _shareButton.image = [_proxyManager SDLImageNamed:kSDLShareImageName];
+  
   if (_banButton == nil) {
     _banButton = [_proxyManager zf_buildSDLSoftButtonText:@"垃圾桶"
-                                                    image:[_proxyManager SDLImageNamed:@"ZF_Ban"]
+                                                    image:nil
                                              softButtonID:_proxyManager.autoIncCorrIDNum
                                                   handler:^{
                                                     LogDebug(@"ban");
                                                   }];
   }
-  return @[_playStatusButton, _collectChannelButton, _shareButton, _banButton];
+  _banButton.image = [_proxyManager SDLImageNamed:kSDLBanImageName];
+  
+  NSArray *buttons = @[_playStatusButton, _collectChannelButton, _shareButton, _banButton];
+  for (SDLSoftButton *button in buttons) {
+    [_proxyManager checkoutButtonType:button];
+  }
+  
+  return buttons;
 }
 
 #pragma mark - Private Methods
@@ -323,6 +345,25 @@ static const NSUInteger kHotChannelChoiceInteractionSetID = 100;
                                              startTime:[[ZFRadioStation sharedRadioStation] currentTime]
                                                endTime:[[ZFRadioStation sharedRadioStation] duration]
                                          correlationID:self.proxyManager.autoIncCorrIDNum];
+}
+
+- (void)_inputConstantImagesCompleted:(void(^)())completed
+{
+  // haval 在 none 的时候最多传 5 张照片， 所以在 full 的时候上传完照片，再刷新页面
+  NSArray *images = @[kSDLBanImageName, kSDLShareImageName, kSDLCollectImageName, kSDLUnCollectImageName, kSDLLikeImageName, kSDLUnlikeImageName];
+  __block NSInteger index = [images count];
+  for (NSString *imageName in images) {
+    [_proxyManager putImage:[UIImage imageNamed:imageName]
+                       name:imageName
+                   fileType:[SDLFileType GRAPHIC_PNG]
+              correlationID:_proxyManager.autoIncCorrIDNum
+                   finished:^(BOOL success, SDLPutFileResponse *response) {
+                     index --;
+                     if (index == 0) {
+                       completed();
+                     }
+                   }];
+  }
 }
 
 #pragma mark - Haval

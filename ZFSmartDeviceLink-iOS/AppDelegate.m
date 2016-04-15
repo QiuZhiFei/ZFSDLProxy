@@ -33,7 +33,7 @@ void uncaughtExceptionHandler(NSException *exception) {
   
   NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
   
-  LoggerSetViewerHost(NULL, (CFStringRef)@"192.168.3.134", (UInt32)50000);
+  LoggerSetViewerHost(NULL, (CFStringRef)@"192.168.1.79", (UInt32)50000);
   LogDebug(@"测试 NSLogger");
   
 #ifdef DEBUG

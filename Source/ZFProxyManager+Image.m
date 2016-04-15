@@ -69,7 +69,7 @@
     image.value = file.syncFileName;
     image.imageType = [SDLImageType DYNAMIC];
   }
-  LogDebug(@"get image %@, in Images == %@", image, self.zf_putImages);
+  LogDebug(@"get image, name == %@, in Images == %@, image == %@", name, self.zf_putImages, image);
   return image;
 }
 

@@ -27,15 +27,20 @@
   button.text = text;
   button.image = image;
   button.softButtonID = softButtonID;
-  if (image) {
-    button.type = text.length > 0 ? [SDLSoftButtonType BOTH] : [SDLSoftButtonType IMAGE];
-  } else {
-    button.type = [SDLSoftButtonType TEXT];
-  }
-  
+  [self checkoutButtonType:button];
   [self.zf_softButtons setValue:handler forKey:softButtonID.stringValue];
   
   return button;
+}
+
+- (void)checkoutButtonType:(SDLSoftButton *)button
+{
+  if (button.image) {
+    button.type = button.text.length > 0 ? [SDLSoftButtonType BOTH] : [SDLSoftButtonType IMAGE];
+  } else {
+    button.type = [SDLSoftButtonType TEXT];
+  }
+  LogDebug(@"button == %@, text == %@, image == %@, type == %@", button, button.text, button.image, button.type);
 }
 
 - (void)onOnButtonPress:(SDLOnButtonPress *)notification

@@ -8,6 +8,7 @@
 
 #import "ZFProxyManager+PutFile.h"
 #import "ZFPutFile.h"
+#import "ZFMacros.h"
 
 #import <objc/runtime.h>
 
@@ -72,6 +73,7 @@
 
 - (ZFPutFile *)putFileForCorrelationID:(NSNumber *)correlationID
 {
+  LogDebug(@"Get file == %@, in %@", correlationID, self.zf_putFiles);
   return self.zf_putFiles[correlationID.stringValue];
 }
 
@@ -91,10 +93,14 @@
 
 - (void)onPutFileResponse:(SDLPutFileResponse *)response
 {
+  
   if (response == nil) {
+    LogDebug(@"Put file response is nil");
     return;
   }
   NSString *correlationID = [NSString stringWithFormat:@"%@", response.correlationID];
+  
+  LogDebug(@"Put file response == %@, ID == %@", response, correlationID);
   
   ZFPutFile *file = self.zf_puttingFiles[correlationID];
   [self.zf_puttingFiles removeObjectForKey:correlationID];
@@ -106,10 +112,14 @@
       [self.zf_putFiles setValue:file forKey:correlationID];
       handler(YES, response);
       [self.zf_putHandlers removeObjectForKey:correlationID];
+      LogDebug(@"Put file success, files == %@", self.zf_putFiles);
       return;
+    } else {
+      LogDebug(@"Put file is nil");
     }
   }
   
+  LogDebug(@"Put file failure");
   handler(NO, nil);
   [self.zf_putHandlers removeObjectForKey:correlationID];
 }
