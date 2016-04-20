@@ -24,10 +24,11 @@
    correlationID:(NSNumber *)correlationID
         finished:(ZFPutImageHandler)handler
 {
-  NSData *data = UIImageJPEGRepresentation(image, 1);
+  NSData *data = UIImageJPEGRepresentation(image, MIN(150.f/image.size.width, 1));
   if (data == nil) {
     data = UIImagePNGRepresentation(image);
   }
+  LogDebug(@"Put image == %@, data == %@", image, data);
   if (data) {
     [self putImage:image
               name:name
@@ -70,6 +71,14 @@
     image.imageType = [SDLImageType DYNAMIC];
   }
   LogDebug(@"get image, name == %@, in Images == %@, image == %@", name, self.zf_putImages, image);
+  return image;
+}
+
++ (SDLImage *)emptyImage
+{
+  SDLImage *image = [[SDLImage alloc] init];
+  image.value = @"";
+  image.imageType = [SDLImageType STATIC];
   return image;
 }
 

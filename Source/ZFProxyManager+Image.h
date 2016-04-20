@@ -26,5 +26,6 @@ typedef void(^ZFPutImageHandler)(BOOL success, SDLPutFileResponse *response);
         finished:(ZFPutImageHandler)handler;
 
 - (SDLImage *)SDLImageNamed:(NSString *)name;
++ (SDLImage *)emptyImage;
 
 @end
