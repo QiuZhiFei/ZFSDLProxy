@@ -9,10 +9,10 @@ PODS:
   - SDWebImage (3.7.5):
     - SDWebImage/Core (= 3.7.5)
   - SDWebImage/Core (3.7.5)
-  - SmartDeviceLink-iOS (4.0.3)
+  - SmartDeviceLink-iOS (4.1.0)
   - ZFSDLProxy (0.0.1):
     - JRSwizzle (~> 1.0)
-    - SmartDeviceLink-iOS (~> 4.0.2)
+    - SmartDeviceLink-iOS (~> 4.1.0)
 
 DEPENDENCIES:
   - DOUAudioStreamer (~> 0.2.13)
@@ -33,7 +33,7 @@ SPEC CHECKSUMS:
   MAKVONotificationCenter: eddfb85e77040323ee43a0fddbe616926ec005a8
   NSLogger: 5ed223a2436df96244e033be750656dacdeec034
   SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
-  SmartDeviceLink-iOS: 7202f0ea32ec4315b888d8c93796046bcf2309e5
-  ZFSDLProxy: 00fefba15083c7bed011fdbbc7a2c061d60a2c07
+  SmartDeviceLink-iOS: 4958aa8e92133dfd47932f5df1669c630c12ac3e
+  ZFSDLProxy: a5fa650796cfee76b8c543b6cf4cb869aa9bc8c7
 
 COCOAPODS: 0.39.0

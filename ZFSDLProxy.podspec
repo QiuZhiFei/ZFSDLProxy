@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.source_files  = "Source/*.{h,m}"
   s.requires_arc = true
   
-  s.dependency 'SmartDeviceLink-iOS',           	'~> 4.0.2'
-  s.dependency 'JRSwizzle',               		'~> 1.0'
+  s.dependency 'SmartDeviceLink-iOS',           	'~> 4.1.0'
+  s.dependency 'JRSwizzle',               		    '~> 1.0'
 
 end
