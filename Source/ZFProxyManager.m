@@ -19,6 +19,7 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
 
 @interface ZFProxyManager ()
 @property (nonatomic, assign) BOOL           isFirstHMIFull;
+@property (nonatomic, assign) BOOL           isFirstHMINone;
 @property (nonatomic, assign) ZFProxyState   state;
 
 @property (nonatomic, assign) BOOL           isGraphicsSupported;
@@ -100,6 +101,7 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
   [_proxy dispose];
   _proxy = nil;
   _isFirstHMIFull = NO;
+  _isFirstHMINone = NO;
   [self resetPutFilesData];
   [self _resetData];
 }
@@ -125,6 +127,7 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
   _proxy = nil;
   _state = ZFProxyStateStopped;
   _isFirstHMIFull = NO;
+  _isFirstHMINone = NO;
 }
 
 - (void)_showIcon
@@ -217,6 +220,10 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
 {
   LogDebug(@"HMILevel == %@",  notification.hmiLevel.description);
   if (notification.hmiLevel == SDLHMILevel.NONE) {
+    if (_isFirstHMINone == NO) {
+      _isFirstHMINone = YES;
+      [self _showIcon];
+    }
     [self _unlockUserInterface];
     _isFirstHMIFull = NO;
   } else if (notification.hmiLevel == SDLHMILevel.FULL) {
@@ -259,7 +266,6 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
       self.isGraphicsSupported = response.displayCapabilities.graphicSupported.boolValue;
     }
   }
-  [self _showIcon];
   [self resetSDLManufacturer:response];
   LogDebug(@"Manufacturer is %ld", (unsigned long)self.manufacturer);
   
