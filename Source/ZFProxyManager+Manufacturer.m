@@ -27,6 +27,7 @@
       manufacturer = ZFSDLManufacturerPateo;
     }
   }
+  LogDebug(@"Set SDLManufacturer == %ld", manufacturer);
   self.manufacturer = manufacturer;
 }
 

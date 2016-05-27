@@ -73,6 +73,7 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
 
 - (void)startProxy
 {
+  LogDebug("startProxy, application active is %d", [UIApplication sharedApplication].applicationState);
   if (![[self class] isSDLValidAccessoryConnected]) {
     LogDebug(@"No proxy connected, don't need create proxy object.");
     return;
@@ -99,6 +100,7 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
   
   self.state = ZFProxyStateStopped;
   [_proxy dispose];
+  [_proxy _resetSeesionID];
   _proxy = nil;
   _isFirstHMIFull = NO;
   _isFirstHMINone = NO;
@@ -108,6 +110,7 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
 
 - (void)resetProxy
 {
+  LogDebug(@"ResetProxy");
   [self stopProxy];
   [self startProxy];
 }

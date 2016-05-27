@@ -12,4 +12,6 @@
 
 - (void)zf_onProtocolMessageReceived:(SDLProtocolMessage *)msgData;
 
+- (void)_resetSeesionID;
+
 @end

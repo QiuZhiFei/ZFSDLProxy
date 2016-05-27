@@ -7,7 +7,7 @@
 //
 
 #if DEBUG
-#define LogDebug(fmt, ...) NSLog((@"%@ %s ~ ~   " fmt), [NSThread currentThread],__FUNCTION__, ##__VA_ARGS__)
+#define LogDebug(fmt, ...) NSLog((@"ZFSDLDEBUG: %@ %s ~ ~   " fmt), [NSThread currentThread],__FUNCTION__, ##__VA_ARGS__)
 #else
 #define LogDebug(...)
 #endif
