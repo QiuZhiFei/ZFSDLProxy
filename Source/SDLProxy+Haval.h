@@ -14,4 +14,6 @@
 
 - (void)_resetSeesionID;
 
+@property (nonatomic, assign) UInt8 sessionID; // only haval, default is 0
+
 @end

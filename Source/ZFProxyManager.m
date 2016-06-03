@@ -12,6 +12,7 @@
 #import "ZFProxyManager+Manufacturer.h"
 #import "ZFMacros.h"
 #import "SDLProxy+Haval.h"
+#import "SDLProtocol+Haval.h"
 
 #import <JRSwizzle/JRSwizzle.h>
 
@@ -35,9 +36,17 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
   NSParameterAssert(app);
   self = [super init];
   if (self) {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_retrieveSessionID:)
+                                                 name:kZFProxyRetrieveSessionID
+                                               object:nil];
+    
     [[EAAccessoryManager sharedAccessoryManager] registerForLocalNotifications];
     [SDLProxy jr_swizzleMethod:@selector(onProtocolMessageReceived:)
                     withMethod:@selector(zf_onProtocolMessageReceived:)
+                         error:nil];
+    [SDLProtocol jr_swizzleMethod:@selector(sdl_retrieveSessionIDforServiceType:)
+                    withMethod:@selector(zf_retrieveSessionIDforServiceType:)
                          error:nil];
     [SDLIAPTransport jr_swizzleMethod:@selector(sdl_dataStreamEndedHandler)
                            withMethod:@selector(zf_sdl_dataStreamEndedHandler)
@@ -188,6 +197,15 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
   _isGraphicsSupported = NO;
   _resolutionSize = CGSizeZero;
   _proxy = nil;
+}
+
+- (void)_retrieveSessionID:(NSNotification *)noti
+{
+  if (noti.object) {
+    NSNumber *number = noti.object;
+    LogDebug(@"Set SessionID == %@", number);
+    _proxy.sessionID = number.integerValue;
+  }
 }
 
 #pragma mark - SDLProxyListner delegate methods

@@ -14,7 +14,7 @@
 static const UInt8 ZFSessionIDNone = 0;
 
 @interface SDLProxy ()
-@property (nonatomic, assign) UInt8 sessionID; // only haval, default is 0
+
 @end
 
 @implementation SDLProxy (Haval)
@@ -24,10 +24,10 @@ static const UInt8 ZFSessionIDNone = 0;
   UInt8 sessionID = msgData.header.sessionID;
   LogDebug(@"Receive SessionID == %d, currentID == %d", sessionID, self.sessionID);
   if ([ZFProxyManager isHavalValidAccessoryConnected]) {
-    if (self.sessionID == ZFSessionIDNone) {
-      LogDebug(@"Set sessionID == %d, oldID == %d", sessionID, self.sessionID);
-      self.sessionID = sessionID;
-    }
+//    if (self.sessionID == ZFSessionIDNone) {
+//      LogDebug(@"Set sessionID == %d, oldID == %d", sessionID, self.sessionID);
+//      self.sessionID = sessionID;
+//    }
     if (self.sessionID == sessionID) {
       LogDebug(@"SessionID is valid, receiveID == %d, currentID == %d", sessionID, self.sessionID);
       [self zf_onProtocolMessageReceived:msgData];
