@@ -29,6 +29,7 @@ FOUNDATION_EXTERN NSString * const kZFProxyStateChangedNotification;
 @property (nonatomic, readonly, assign) BOOL         isGraphicsSupported;
 @property (nonatomic, readonly, assign) CGSize       resolutionSize;
 @property (nonatomic, assign          ) BOOL         pausedByUser;
+@property (nonatomic, readonly, strong) SDLHMILevel  *currentHMI;
 
 /**
  *  autoIncCorrIDNum 1000~ 

@@ -27,6 +27,8 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
 @property (nonatomic, strong) SDLDisplayType *displayType;
 @property (nonatomic, strong) NSArray        *textFields;
 @property (nonatomic, strong) NSArray        *tempplatesAvailable;
+
+@property (nonatomic, strong) SDLHMILevel    *currentHMI;
 @end
 
 @implementation ZFProxyManager
@@ -194,6 +196,7 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
 
 - (void)_resetData
 {
+  _currentHMI = SDLHMILevel.NONE;
   _isGraphicsSupported = NO;
   _resolutionSize = CGSizeZero;
   _proxy = nil;
@@ -240,6 +243,7 @@ NSString * const kZFProxyStateChangedNotification = @"kZFProxyStateChangedNotifi
 - (void)onOnHMIStatus:(SDLOnHMIStatus *)notification
 {
   LogDebug(@"HMILevel == %@",  notification.hmiLevel.description);
+  _currentHMI = notification.hmiLevel;
   if (notification.hmiLevel == SDLHMILevel.NONE) {
     if (_isFirstHMINone == NO) {
       _isFirstHMINone = YES;
