@@ -61,6 +61,7 @@
                                 interactionChoiceSetID:interactionChoiceSetID
                                 correlationID:self.autoIncCorrIDNum];
   req.interactionMode = [SDLInteractionMode MANUAL_ONLY];
+  req.timeout = @100000;
   [self.proxy sendRPC:req];
 }
 
