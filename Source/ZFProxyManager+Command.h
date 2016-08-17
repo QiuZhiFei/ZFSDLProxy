@@ -12,6 +12,7 @@ typedef void(^ZFCommandHandler)();
 
 @interface ZFProxyManager (Command)
 
+// name 设为 nil，只保留语音，取消文字
 - (void)addCommandWithMenuName:(NSString *)name
                       commands:(NSArray *)commands
                  correlationID:(NSNumber *)correlationID

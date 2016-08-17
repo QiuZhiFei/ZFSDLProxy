@@ -24,10 +24,18 @@
                        handler:(ZFCommandHandler)handler
 {
   [self.zf_commands setValue:handler forKey:correlationID.stringValue];
-  SDLAddCommand *command = [SDLRPCRequestFactory buildAddCommandWithID:correlationID
-                                                              menuName:name
-                                                            vrCommands:commands
-                                                         correlationID:correlationID];
+  SDLAddCommand *command = nil;
+  if (name.length > 0) {
+    command = [SDLRPCRequestFactory buildAddCommandWithID:correlationID
+                                                 menuName:name
+                                               vrCommands:commands
+                                            correlationID:correlationID];
+  } else {
+    command = [SDLRPCRequestFactory buildAddCommandWithID:correlationID
+                                               vrCommands:commands
+                                            correlationID:correlationID];
+  }
+  
   LogDebug("Add command: %@", command.description);
   [self.proxy sendRPC:command];
 }
