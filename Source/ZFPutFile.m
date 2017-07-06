@@ -6,9 +6,9 @@
 //  Copyright © 2016年 ZhiFei(qiuzhifei521@gmail.com). All rights reserved.
 //
 
-#import "ZFPutFile.h"
+@import SmartDeviceLink_iOS;
 
-#import <SmartDeviceLink-iOS/SmartDeviceLink.h>
+#import "ZFPutFile.h"
 
 @interface ZFPutFile ()
 @property (nonatomic, strong) NSString    *syncFileName;

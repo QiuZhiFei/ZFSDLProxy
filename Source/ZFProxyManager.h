@@ -6,15 +6,14 @@
 //  Copyright © 2016年 ZhiFei(qiuzhifei521@gmail.com). All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import SmartDeviceLink_iOS;
+
 #import "ZFAppearance.h"
 
-#import <SmartDeviceLink-iOS/SmartDeviceLink.h>
-
 typedef NS_ENUM(NSUInteger, ZFProxyState) {
-  ZFProxyStateStopped,
-  ZFProxyStateSearchingForConnection,
-  ZFProxyStateConnected
+  ZFProxyStateStopped = 0,
+  ZFProxyStateSearchingForConnection = 1,
+  ZFProxyStateConnected = 2
 };
 
 FOUNDATION_EXTERN NSString * const kZFProxyStateChangedNotification;

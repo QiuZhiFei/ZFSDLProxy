@@ -10,10 +10,10 @@
 
 typedef NS_ENUM(NSUInteger, ZFSDLManufacturer) {
   ZFSDLManufacturerNone = 0,
-  ZFSDLManufacturerFord,
-  ZFSDLManufacturerPateo,
-  ZFSDLManufacturerHaval,
-  ZFSDLManufacturerUnKnown
+  ZFSDLManufacturerFord = 1,
+  ZFSDLManufacturerPateo = 2,
+  ZFSDLManufacturerHaval = 3,
+  ZFSDLManufacturerUnKnown = 4
 };
 
 @interface ZFProxyManager (Manufacturer)

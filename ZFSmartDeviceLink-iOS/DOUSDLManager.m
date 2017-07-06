@@ -6,13 +6,13 @@
 //  Copyright © 2016年 ZhiFei(qiuzhifei521@gmail.com). All rights reserved.
 //
 
+@import SDWebImage;
+@import MAKVONotificationCenter;
+
 #import "DOUSDLManager.h"
 #import "ZFRadioStation.h"
 #import "ZFSong.h"
 #import "DOUSDLInfo.h"
-
-#import <SDWebImage/SDWebImageManager.h>
-#import <MAKVONotificationCenter/MAKVONotificationCenter.h>
 
 static NSString * const kSDLBanImageName       = @"haval_ban";
 static NSString * const kSDLShareImageName     = @"haval_share";

@@ -6,8 +6,8 @@
 //  Copyright © 2016年 ZhiFei(qiuzhifei521@gmail.com). All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "ZFSDLProxy.h"
+@import ZFSDLProxy;
+@import Foundation;
 
 @interface DOUSDLManager : NSObject
 
