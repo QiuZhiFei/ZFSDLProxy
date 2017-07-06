@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'ZFSDLProxy'
-  s.version      = '0.0.1'
+  s.version      = '0.0.2'
   s.summary      = 'A convenient connection between app and car base on SmartDeviceLink-iOS'
   s.platform     = :ios, '7.0'
   s.homepage = 'https://github.com/QiuZhiFei/ZFSDLProxy'
