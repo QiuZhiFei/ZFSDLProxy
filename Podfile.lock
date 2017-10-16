@@ -10,7 +10,7 @@ PODS:
     - SDWebImage/Core (= 3.7.5)
   - SDWebImage/Core (3.7.5)
   - SmartDeviceLink-iOS (4.1.0)
-  - ZFSDLProxy (0.0.2):
+  - ZFSDLProxy (0.0.3):
     - JRSwizzle (~> 1.0)
     - SmartDeviceLink-iOS (~> 4.1.0)
 
@@ -34,7 +34,7 @@ SPEC CHECKSUMS:
   NSLogger: 5ed223a2436df96244e033be750656dacdeec034
   SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
   SmartDeviceLink-iOS: 4acebee1fd83aaf9f86b28f4f80ea7b85ca87a5e
-  ZFSDLProxy: b269da46564fcd23b6cb46d07fa924eb7b9dd68f
+  ZFSDLProxy: 6e78d3946d9a6b7fd471f5079815342b4d5b3c3d
 
 PODFILE CHECKSUM: 2bd03399361dbc1e33b31e7b906389d279d7687c
 
