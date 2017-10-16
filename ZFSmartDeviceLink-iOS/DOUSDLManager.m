@@ -347,7 +347,7 @@ static const NSUInteger kHotChannelChoiceInteractionSetID = 100;
                                          correlationID:self.proxyManager.autoIncCorrIDNum];
 }
 
-- (void)_inputConstantImagesCompleted:(void(^)())completed
+- (void)_inputConstantImagesCompleted:(void(^)(void))completed
 {
   // haval 在 none 的时候最多传 5 张照片， 所以在 full 的时候上传完照片，再刷新页面
   NSArray *images = @[kSDLBanImageName, kSDLShareImageName, kSDLCollectImageName, kSDLUnCollectImageName, kSDLLikeImageName, kSDLUnlikeImageName];
